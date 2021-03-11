@@ -1,0 +1,22 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 80
+ENV ConnectionStrings:DemoDBConnection="Host=192.168.1.173;Port=32770;Database=DemoDB;Username=demo-user;Password=123456"
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /src
+COPY ["DemoTools/DemoTools.csproj", "DemoTools/"]
+RUN dotnet restore "DemoTools/DemoTools.csproj"
+COPY . .
+WORKDIR "/src/DemoTools"
+RUN dotnet build "DemoTools.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "DemoTools.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "DemoTools.dll"]
