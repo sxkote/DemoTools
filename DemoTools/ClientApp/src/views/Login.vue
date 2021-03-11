@@ -39,25 +39,24 @@
 </template>
 
 
-<script>
-    export default {
-        name: "Login",
-        data() {
-            return {
-                login: '',
-                password: ''
-            }
-        },
-        methods: {
-            incrementCounter() {
-                this.currentCount++;
-            },
-            authorize() {
-                console.log(this.login + ' & ' + this.password);
-            },
-            register() {
-                console.log('go to register page || register modal');
-            },
+<script lang="ts">
+    import { Vue } from 'vue-class-component';
+
+    export default class Login extends Vue {
+        login: string = "";
+        password: string = "";
+        counter: number = 0;
+
+        incrementCounter() {
+            this.counter++;
+        }
+
+        authorize() {
+            console.log(this.login + ' & ' + this.password);
+        }
+
+        register() {
+            console.log('go to register page || register modal');
         }
     }
 </script>

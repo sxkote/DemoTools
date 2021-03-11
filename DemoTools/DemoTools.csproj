@@ -3,7 +3,26 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptBuildMode>true</TypeScriptBuildMode>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\node_modules\**" />
+    <Content Remove="ClientApp\node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\node_modules\**" />
+    <None Remove="ClientApp\node_modules\**" />
+    <TypeScriptCompile Remove="ClientApp\node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\router\index-old.js" />
+    <None Remove="ClientApp\src\views\Counter.vue" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\main.ts" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
@@ -15,6 +34,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\SX.Common.Api\SX.Common.Api.csproj" />
     <ProjectReference Include="..\Modules\Main\DemoTools.Modules.Main.Api\DemoTools.Modules.Main.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\classes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ClientApp\src\main.ts" />
   </ItemGroup>
 
 </Project>

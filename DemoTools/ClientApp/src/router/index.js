@@ -1,35 +1,20 @@
-﻿import { createWebHistory, createRouter } from "vue-router";
-import Home from "@/components/Home.vue";
-import Counter from "@/components/Counter.vue";
-import Login from "@/components/Login.vue";
-//import FetchData from "@/components/FetchData.vue";
-
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '@/views/Home.vue';
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: Login,
+        component: Home
     },
     {
         path: "/Login",
         name: "Login",
-        component: Login,
+        component: () => import(/* webpackChunkName: "about" */ '@/views/Login.vue')
     },
-    {
-        path: "/Counter",
-        name: "Counter",
-        component: Counter,
-    },
-    //{
-    //    path: "/FetchData",
-    //    name: "FetchData",
-    //    component: FetchData,
-    //}
 ];
-
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+    history: createWebHistory(process.env.BASE_URL),
+    routes
 });
-
 export default router;
+//# sourceMappingURL=index.js.map

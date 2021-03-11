@@ -1,26 +1,6 @@
-<template>
+﻿<template>
     <div class="hello">
         <h1>{{ msg }}</h1>
-        <!--<img src="../assets/logo.png" />-->
-        <p>
-            Template for Vue JS 3.0 and .NET 5 applications developed by <b>Alexandre Malavasi.</b><br />
-            In order to get more content on Vue JS and .NET platform, please follow on my social media profiles:
-        </p>
-        <ul>
-            <li>
-                <a href="https://medium.com/@alexandre.malavasi" target="_blank">Medium</a>
-            </li>
-            <li>
-                <a href="https://twitter.com/alemalavasi" target="_blank">Twitter</a>
-            </li>
-            <li>
-                <a href="https://www.youtube.com/channel/UC-KFGgYiot1eA8QFqIgLmqA" target="_blank">Youtube</a>
-            </li>
-            <li>
-                <a href="https://www.facebook.com/alexandre.malavasi.dev" target="_blank">Facebook</a>
-            </li>
-        </ul>
-        <h3>Vue Documentation</h3>
         <p>
             For a guide and recipes on how to configure / customize this project,<br>
             check out the
@@ -29,7 +9,8 @@
         <h3>Installed CLI Plugins</h3>
         <ul>
             <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-            <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+            <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
+            <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
         </ul>
         <h3>Essential Links</h3>
         <ul>
@@ -50,13 +31,17 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'Home',
-        props: {
-            msg: String
-        }
-    }
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+
+@Options({
+  props: {
+    msg: String
+  }
+})
+export default class HelloWorld extends Vue {
+  msg!: string
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

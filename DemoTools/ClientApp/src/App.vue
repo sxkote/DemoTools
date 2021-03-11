@@ -3,14 +3,19 @@
     <router-view />
 </template>
 
-<script>import NavMenu from './components/NavMenu.vue'
 
-export default {
-  name: 'App',
-  components: {
-      NavMenu
-  }
-}</script>
+<script lang="ts">
+    import { Options, Vue } from 'vue-class-component';
+    import NavMenu from '@/components/NavMenu.vue';
+
+    @Options({
+        components: {
+            NavMenu
+        },
+    })
+    export default class App extends Vue { }
+</script>
+
 
 <style>
     #app {
@@ -18,7 +23,7 @@ export default {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
-/*        color: #2c3e50;
-        margin-top: 60px;*/
+        color: #2c3e50;
     }
 </style>
+

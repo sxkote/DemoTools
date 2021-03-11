@@ -16,10 +16,10 @@
                     <ul class="navbar-nav flex-grow">
                         <li class="nav-item">
                             <router-link :to="{ name: 'Home' }" class="nav-link text-dark">Home</router-link>
-                           
+
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name: 'Counter' }" class="nav-link text-dark">Counter</router-link>
+                            <router-link :to="{ name: 'Login' }" class="nav-link text-dark">Login</router-link>
                         </li>
                     </ul>
                 </div>
@@ -50,22 +50,17 @@
         box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
     }
 </style>
-<script>
-    export default {
-        name: "NavMenu",
-        data() {
-            return {
-                isExpanded: false
-            }
-        },
-        methods: {
-            collapse() {
-                this.isExpanded = false;
-            },
 
-            toggle() {
-                this.isExpanded = !this.isExpanded;
-            }
+<script lang="ts">
+    import { Options, Vue } from 'vue-class-component';
+
+    export default class NavMenu extends Vue {
+        isExpanded: boolean = false;
+        collapse() {
+            this.isExpanded = false;
+        }
+        toggle() {
+            this.isExpanded = !this.isExpanded;
         }
     }
 </script>
