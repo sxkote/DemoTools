@@ -8,6 +8,7 @@ using SX.Common.Api.Classes;
 using SX.Common.Api.Services;
 using SX.Common.Infrastructure.Services;
 using SX.Common.Shared.Contracts;
+using VueCliMiddleware;
 
 namespace DemoTools
 {
@@ -30,7 +31,11 @@ namespace DemoTools
             var mvcBuilder = services.AddControllersWithViews()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
-            
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp";
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = TokenAuthenticationHandler.SCHEMA;
@@ -54,17 +59,34 @@ namespace DemoTools
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
+
+            //app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSpaStaticFiles();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                if (env.IsDevelopment())
+                    spa.Options.SourcePath = "ClientApp/";
+                else
+                    spa.Options.SourcePath = "dist";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseVueCli(npmScript: "serve", forceKill: true);
+                }
             });
         }
     }
