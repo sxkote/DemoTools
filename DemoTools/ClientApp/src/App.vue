@@ -6,12 +6,18 @@
 
 <script lang="ts">
     import { Options, Vue } from 'vue-class-component';
+    import SYMBOLS from '@/configs/symbols'
+    import container from '@/configs/dependency.config'
     import NavMenu from '@/components/NavMenu.vue';
 
     @Options({
+        name: "App",
         components: {
             NavMenu
         },
+        provide: {
+            [SYMBOLS.CONTAINER]: container
+        }
     })
     export default class App extends Vue { }
 </script>

@@ -12,7 +12,7 @@
                         <div class="row mb-4">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Login" class="form-control" v-model="login" required/>
+                                    <input type="text" placeholder="Login" class="form-control" v-model="login" required />
                                 </div>
                             </div>
                         </div>
@@ -41,18 +41,27 @@
 
 <script lang="ts">
     import { Vue } from 'vue-class-component';
+    import { Inject } from 'vue-property-decorator';
+    import { Container } from "inversify";
+    import SYMBOLS from '../configs/symbols';
+    import { IAuthenticationService, ILogger } from '../interfaces/interfaces';
+
 
     export default class Login extends Vue {
+        private authService: IAuthenticationService;
+
+        @Inject(SYMBOLS.CONTAINER)
+        private _container: Container;
+
         login: string = "";
         password: string = "";
-        counter: number = 0;
 
-        incrementCounter() {
-            this.counter++;
+        created(): void {
+            this.authService = this._container.get<IAuthenticationService>(SYMBOLS.IAuthenticationService);
         }
 
         authorize() {
-            console.log(this.login + ' & ' + this.password);
+            this.authService.authenticate(this.login, this.password);
         }
 
         register() {
