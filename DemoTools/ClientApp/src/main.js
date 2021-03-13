@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { createApp } from 'vue';
-import { createStore } from 'vuex';
 import App from './App.vue';
-import router from './router';
+import router from '@/configs/router.config';
+import { store, key } from '@/configs/store.config';
+// приложение VUE
 const app = createApp(App);
-const store = createStore({});
-app.use(store).use(router).mount('#app');
+app.use(store, key).use(router).mount('#app');
 //# sourceMappingURL=main.js.map

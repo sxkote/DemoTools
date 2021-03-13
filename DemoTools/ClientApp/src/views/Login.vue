@@ -43,8 +43,8 @@
     import { Vue } from 'vue-class-component';
     import { Inject } from 'vue-property-decorator';
     import { Container } from "inversify";
-    import SYMBOLS from '../configs/symbols';
-    import { IAuthenticationService, ILogger } from '../interfaces/interfaces';
+    import SYMBOLS from '@/configs/symbols';
+    import { IAuthenticationService, ILogger } from '@/interfaces/interfaces';
 
 
     export default class Login extends Vue {
@@ -61,11 +61,17 @@
         }
 
         authorize() {
-            this.authService.authenticate(this.login, this.password);
+            var $self = this;
+            this.authService.authenticate(this.login, this.password)
+                .then(token => {
+                    $self.$store.dispatch('setToken', { token: token });
+                })
+                .catch(err => console.log(err));
         }
 
         register() {
-            console.log('go to register page || register modal');
+            var value = this.$store.getters.userName;
+            console.log('current token: ' + value);
         }
     }
 </script>

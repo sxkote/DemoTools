@@ -16,10 +16,15 @@
                     <ul class="navbar-nav flex-grow">
                         <li class="nav-item">
                             <router-link :to="{ name: 'Home' }" class="nav-link text-dark">Home</router-link>
-
                         </li>
                         <li class="nav-item">
+                            <router-link :to="{ name: 'TodoLists' }" class="nav-link text-dark">Todos</router-link>
+                        </li>
+                        <li class="nav-item" v-if="!userName">
                             <router-link :to="{ name: 'Login' }" class="nav-link text-dark">Login</router-link>
+                        </li>
+                        <li class="nav-item" v-else>
+                            <router-link :to="{ name: 'Login' }" class="nav-link text-dark">{{userName}}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -61,6 +66,9 @@
         }
         toggle() {
             this.isExpanded = !this.isExpanded;
+        }
+        get userName() {
+            return this.$store.getters.userName;
         }
     }
 </script>

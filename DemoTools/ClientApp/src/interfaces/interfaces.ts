@@ -20,7 +20,7 @@
 }
 
 export interface IAuthenticationService {
-    authenticate(login: string, password: string): IToken;
+    authenticate(login: string, password: string): Promise<IToken>;
     getToken(): IToken;
     setToken(token: IToken): void;
 }
@@ -29,3 +29,4 @@ export interface IAuthenticationService {
 export interface ILogger {
     log(message: string): void;
 }
+

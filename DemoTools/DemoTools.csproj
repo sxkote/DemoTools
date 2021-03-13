@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\router\index-old.js" />
     <None Remove="ClientApp\src\views\Counter.vue" />
   </ItemGroup>
 
@@ -37,6 +36,10 @@
 
   <ItemGroup>
     <None Include="ClientApp\src\main.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\components\main\" />
   </ItemGroup>
 
 </Project>

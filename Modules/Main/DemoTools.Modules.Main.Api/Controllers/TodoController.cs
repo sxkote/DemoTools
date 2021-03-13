@@ -2,6 +2,7 @@
 using DemoTools.Modules.Main.Domain.Entities.Todos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace DemoTools.Modules.Main.Api.Controllers
@@ -23,6 +24,14 @@ namespace DemoTools.Modules.Main.Api.Controllers
         public IEnumerable<TodoList> GetTodoLists()
         {
             return _todoService.GetAllLists();
+        }
+
+        [Authorize(AuthenticationSchemes = "Token", Roles = "User")]
+        [HttpGet]
+        [Route("{id}")]
+        public TodoList GetTodoList(Guid id)
+        {
+            return _todoService.GetList(id);
         }
     }
 }

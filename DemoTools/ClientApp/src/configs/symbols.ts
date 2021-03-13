@@ -1,8 +1,11 @@
 ﻿var SYMBOLS = {
+    APIURL: 'http://localhost:59448/api/',
+    CONTAINER: Symbol("Container"),
+    STORE: Symbol("Store"),
     IToken: Symbol("IToken"),
     ILogger: Symbol("ILogger"),
     IAuthenticationService: Symbol("IAuthenticationService"),
-    CONTAINER: Symbol("Container")
+    ITodoService: Symbol("ITodoService"),
 };
 
 export default SYMBOLS;
