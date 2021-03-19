@@ -1,0 +1,64 @@
+﻿$color-main: #42b983;
+$color-link: $color-main;
+$color-link-hover: darken($color-link, 20%);
+
+$color-header: $color-main;
+$color-bg-gray: #efefef;
+
+.link {
+    cursor: pointer;
+    color: $color-link;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-link-hover !important;
+    }
+}
+
+h2 {
+    //color: $color-link;
+    //font-weight: bold;
+}
+
+
+.list-group{
+    .list-group-item{
+        &:hover{
+            background-color: $color-bg-gray;
+        }
+    }
+}
+
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+button.close {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+
+    span {
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: 0.2;
+    }
+}
+

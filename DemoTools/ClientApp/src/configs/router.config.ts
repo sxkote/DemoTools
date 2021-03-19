@@ -1,22 +1,21 @@
 ﻿import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '@/views/Home.vue'
 import { store } from '@/configs/store.config'
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
         name: "Home",
-        component: Home
+        component: () => import(/* webpackChunkName: "about" */ '@/views/Home.View.vue')
     },
     {
         path: "/Login",
         name: "Login",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/Login.vue')
+        component: () => import(/* webpackChunkName: "about" */ '@/views/Login.View.vue')
     },
     {
         path: "/Todo",
         name: "TodoLists",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/TodoLists.View.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/todo/TodoLists.View.vue'),
         meta: {
             requiresAuth: true
         }
@@ -24,16 +23,11 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/Todo/:id",
         name: "TodoList",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/TodoList.View.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/todo/TodoList.View.vue'),
         meta: {
             requiresAuth: true
         }
     },
-    //{
-    //    path: "/Counter",
-    //    name: "Counter",
-    //    component: () => import(/* webpackChunkName: "about" */ '../views/Counter.vue')
-    //},
 ]
 
 const router = createRouter({

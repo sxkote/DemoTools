@@ -13,7 +13,7 @@
     @Options({
         name: "App",
         components: {
-            NavMenu
+            NavMenu,
         },
         provide: {
             [SYMBOLS.CONTAINER]: container

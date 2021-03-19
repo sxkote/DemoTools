@@ -1,5 +1,5 @@
 ﻿using DemoTools.Modules.Main.Domain.Contracts.Repositories;
-using DemoTools.Modules.Main.Domain.Entities.Todos;
+using DemoTools.Modules.Main.Domain.Entities.Todo;
 using DemoTools.Modules.Main.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using SX.Common.Infrastructure.Services;
@@ -26,6 +26,12 @@ namespace DemoTools.Modules.Main.Infrastructure.Repositories
                 query = query.AsNoTracking();
 
             return query;
+        }
+
+        protected override void DeleteReferences(TodoList entity)
+        {
+            this.DbContext.Set<TodoItem>()
+                .RemoveRange(entity.Items);
         }
     }
 }

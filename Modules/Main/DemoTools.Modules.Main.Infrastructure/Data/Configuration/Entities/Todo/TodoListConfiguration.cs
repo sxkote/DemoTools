@@ -1,8 +1,8 @@
-﻿using DemoTools.Modules.Main.Domain.Entities.Todos;
+﻿using DemoTools.Modules.Main.Domain.Entities.Todo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities
+namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Todo
 {
     public class TodoListConfiguration : IEntityTypeConfiguration<TodoList>
     {
@@ -16,7 +16,7 @@ namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities
 
             builder.HasMany(t => t.Items)
                 .WithOne()
-                .HasForeignKey("TodoListID");
+                .HasForeignKey(t => t.TodoListID);
         }
     }
 }

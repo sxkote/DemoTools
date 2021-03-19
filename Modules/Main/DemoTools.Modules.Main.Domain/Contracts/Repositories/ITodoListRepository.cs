@@ -1,4 +1,4 @@
-﻿using DemoTools.Modules.Main.Domain.Entities.Todos;
+﻿using DemoTools.Modules.Main.Domain.Entities.Todo;
 using SX.Common.Domain.Contracts;
 
 namespace DemoTools.Modules.Main.Domain.Contracts.Repositories

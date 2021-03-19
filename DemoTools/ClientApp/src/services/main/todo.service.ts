@@ -9,7 +9,8 @@ export class TodoService implements ITodoService {
     getTodoLists(): Promise<TodoList[]> {
         return axios.get(SYMBOLS.APIURL + 'todo')
             .then(response => {
-                return response.data.map((i: any) => new TodoList(i));
+                return response.data.map((i: any) => new TodoList(i))
+                    .sort((a: TodoList, b: TodoList) => a.Title < b.Title ? -1 : 1);
             });
     }
     getTodoList(listID: string): Promise<TodoList> {
@@ -18,19 +19,35 @@ export class TodoService implements ITodoService {
                 return new TodoList(response.data);
             });
     }
-    addTodoList(title: string): void {
-        throw new Error("Method not implemented.");
+    addTodoList(title: string): Promise<void> {
+        return axios.post(SYMBOLS.APIURL + 'todo', {
+            Title: title
+        });
     }
-    addTodoItem(listID: string, title: string): void {
-        throw new Error("Method not implemented.");
+    modifyTodoList(listID: string, title: string): Promise<void> {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID, {
+            Title: title
+        });
     }
-    completeTodoItem(listID: string, itemID: string): void {
-        throw new Error("Method not implemented.");
+    deleteTodoList(listID: string): Promise<void> {
+        return axios.delete(SYMBOLS.APIURL + 'todo/' + listID);
     }
-    deleteTodoItem(listID: string, itemID: string): void {
-        throw new Error("Method not implemented.");
+
+
+    toggleTodoListItem(listID: string, itemID: string): Promise<void> {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID + '/items/' + itemID + '/toggle');
     }
-    modifyTodoItem(listID: string, itemID: string, title: string): void {
-        throw new Error("Method not implemented.");
+    addTodoListItem(listID: string, title: string): Promise<void> {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID + '/items', {
+            Title: title
+        });
+    }
+    modifyTodoListItem(listID: string, itemID: string, title: string): Promise<void> {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID + '/items/' + itemID, {
+            Title: title
+        });
+    }
+    deleteTodoListItem(listID: string, itemID: string): Promise<void> {
+        return axios.delete(SYMBOLS.APIURL + 'todo/' + listID + '/items/' + itemID);
     }
 }

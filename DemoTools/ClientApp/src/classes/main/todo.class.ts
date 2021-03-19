@@ -7,8 +7,10 @@
         if (data != undefined && data != null) {
             this.ID = data.ID || "";
             this.Title = data.Title || "";
-            if (!!data.Items)
-                this.Items = data.Items.map((i: any) => new TodoItem(i));
+            if (!!data.Items) {
+                this.Items = data.Items.map((i: any) => new TodoItem(i))
+                    .sort((a: TodoItem, b: TodoItem) => a.Title < b.Title ? -1 : 1);
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using SX.Common.Shared.Services;
 using System;
 using System.Collections.Generic;
 
-namespace DemoTools.Modules.Main.Domain.Entities.Todos
+namespace DemoTools.Modules.Main.Domain.Entities.Todo
 {
     public class TodoList : EntityGuid
     {

@@ -1,21 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/Home.vue';
 import { store } from '@/configs/store.config';
 const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home
+        component: () => import(/* webpackChunkName: "about" */ '@/views/Home.View.vue')
     },
     {
         path: "/Login",
         name: "Login",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/Login.vue')
+        component: () => import(/* webpackChunkName: "about" */ '@/views/Login.View.vue')
     },
     {
         path: "/Todo",
         name: "TodoLists",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/TodoLists.View.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/todo/TodoLists.View.vue'),
         meta: {
             requiresAuth: true
         }
@@ -23,7 +22,7 @@ const routes = [
     {
         path: "/Todo/:id",
         name: "TodoList",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/TodoList.View.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/todo/TodoList.View.vue'),
         meta: {
             requiresAuth: true
         }

@@ -7,7 +7,8 @@ let TodoService = class TodoService {
     getTodoLists() {
         return axios.get(SYMBOLS.APIURL + 'todo')
             .then(response => {
-            return response.data.map((i) => new TodoList(i));
+            return response.data.map((i) => new TodoList(i))
+                .sort((a, b) => a.Title < b.Title ? -1 : 1);
         });
     }
     getTodoList(listID) {
@@ -17,19 +18,33 @@ let TodoService = class TodoService {
         });
     }
     addTodoList(title) {
-        throw new Error("Method not implemented.");
+        return axios.post(SYMBOLS.APIURL + 'todo', {
+            Title: title
+        });
     }
-    addTodoItem(listID, title) {
-        throw new Error("Method not implemented.");
+    modifyTodoList(listID, title) {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID, {
+            Title: title
+        });
     }
-    completeTodoItem(listID, itemID) {
-        throw new Error("Method not implemented.");
+    deleteTodoList(listID) {
+        return axios.delete(SYMBOLS.APIURL + 'todo/' + listID);
     }
-    deleteTodoItem(listID, itemID) {
-        throw new Error("Method not implemented.");
+    toggleTodoListItem(listID, itemID) {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID + '/items/' + itemID + '/toggle');
     }
-    modifyTodoItem(listID, itemID, title) {
-        throw new Error("Method not implemented.");
+    addTodoListItem(listID, title) {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID + '/items', {
+            Title: title
+        });
+    }
+    modifyTodoListItem(listID, itemID, title) {
+        return axios.post(SYMBOLS.APIURL + 'todo/' + listID + '/items/' + itemID, {
+            Title: title
+        });
+    }
+    deleteTodoListItem(listID, itemID) {
+        return axios.delete(SYMBOLS.APIURL + 'todo/' + listID + '/items/' + itemID);
     }
 };
 TodoService = __decorate([

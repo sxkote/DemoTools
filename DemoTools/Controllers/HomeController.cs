@@ -1,6 +1,6 @@
 ﻿using DemoTools.Models;
 using DemoTools.Modules.Main.Domain.Contracts.Services;
-using DemoTools.Modules.Main.Domain.Entities.Todos;
+using DemoTools.Modules.Main.Domain.Entities.Todo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

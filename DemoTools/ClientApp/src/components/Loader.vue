@@ -1,10 +1,11 @@
 <template>
-    <div v-if="isLoading">
-        <span>loading...</span>
+    <div v-if="isLoading" class="text-center">
+        <div class="spinner-border" role="status">
+        </div>
+        <div>{{title}}</div>
     </div>
+    <slot v-else></slot>
 </template>
-
-
 
 
 <script lang="ts">
@@ -12,9 +13,9 @@
 
     @Options({
         props: {
-            name: String,
+            title: String,
             isLoading: Boolean
-        }
+        },
     })
     export default class Loader extends Vue {
     }

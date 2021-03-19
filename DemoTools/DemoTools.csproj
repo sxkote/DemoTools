@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\src\views\Counter.vue" />
   </ItemGroup>
 
@@ -36,6 +40,7 @@
 
   <ItemGroup>
     <None Include="ClientApp\src\main.ts" />
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>

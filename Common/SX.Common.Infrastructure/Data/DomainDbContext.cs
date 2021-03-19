@@ -87,7 +87,7 @@ namespace SX.Common.Infrastructure.Data
 
         public override int SaveChanges()
         {
-            this.MatchDbStateForAllEnties();
+            //this.MatchDbStateForAllEnties();
 
             //// MAIN save changes
             //if (AppSettings.Global.UseZZZ)
@@ -97,7 +97,7 @@ namespace SX.Common.Infrastructure.Data
             //this.BulkSaveChanges();
 
             // set back DbStates to None (after saving)
-            this.ClearDbStateForAllEntries();
+            //this.ClearDbStateForAllEntries();
 
             return 0;
         }

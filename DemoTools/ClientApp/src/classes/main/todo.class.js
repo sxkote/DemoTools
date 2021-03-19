@@ -6,8 +6,10 @@ export class TodoList {
         if (data != undefined && data != null) {
             this.ID = data.ID || "";
             this.Title = data.Title || "";
-            if (!!data.Items)
-                this.Items = data.Items.map((i) => new TodoItem(i));
+            if (!!data.Items) {
+                this.Items = data.Items.map((i) => new TodoItem(i))
+                    .sort((a, b) => a.Title < b.Title ? -1 : 1);
+            }
         }
     }
 }

@@ -3,28 +3,59 @@ import { inject, injectable } from "inversify";
 import SYMBOLS from "@/configs/symbols";
 import { Token } from '@/classes/token';
 import axios from "axios";
+import { store } from '@/configs/store.config';
 let AuthenticationService = class AuthenticationService {
     constructor(logger) {
         this.logger = logger;
     }
+    applyToken(token, inLocalStorage, inStore, inHeaders) {
+        if (inLocalStorage) {
+            if (!!token)
+                localStorage.setItem('token', JSON.stringify(token));
+            else
+                localStorage.removeItem('token');
+        }
+        if (inStore) {
+            store.dispatch('setToken', { token: token });
+        }
+        if (inHeaders) {
+            if (!!token)
+                axios.defaults.headers.common['Authorization'] = 'Token ' + token.TokenID;
+            else
+                axios.defaults.headers.common['Authorization'] = 'Token';
+        }
+    }
     getToken() {
-        this.logger.log('try to get token');
-        throw new Error('Method not implemented.');
+        var token = store.getters.token;
+        if (token != null)
+            return token;
+        // get token from localStorage
+        var json = localStorage.getItem('token');
+        if (!json)
+            return null;
+        token = new Token(JSON.parse(json));
+        if (!token || !token.isValid())
+            return null;
+        // apply token from localStorage
+        this.applyToken(token, false, true, true);
+        return token;
     }
     setToken(token) {
-        this.logger.log('try to set token');
-        throw new Error('Method not implemented.');
+        this.applyToken(token, true, true, true);
+    }
+    logout() {
+        this.applyToken(null, true, true, true);
     }
     authenticate(login, password) {
         var data = {
             Login: login,
             Password: password
         };
-        return axios.post('http://localhost:59448/api/auth/login', data)
+        var $srv = this;
+        return axios.post(SYMBOLS.APIURL + 'auth/login', data)
             .then(resp => {
             var token = new Token(resp.data);
-            //localStorage.setItem('token', token)
-            axios.defaults.headers.common['Authorization'] = 'Token ' + token.TokenID;
+            $srv.setToken(token);
             return token;
         })
             .catch(err => {
@@ -33,17 +64,6 @@ let AuthenticationService = class AuthenticationService {
             //return null;
             throw 'authorization error';
         });
-        //this.logger.log('try to login: ' + login + ' & ' + password);
-        //var date = new Date();
-        //var expire = date;
-        //expire.setHours(date.getHours() + 4);
-        //return new Token({
-        //    TokenID: 'test-token-id',
-        //    UserID: 'test-user-id',
-        //    Name: 'John Doe',
-        //    Date: date,
-        //    Expire: expire
-        //});
     }
 };
 AuthenticationService = __decorate([

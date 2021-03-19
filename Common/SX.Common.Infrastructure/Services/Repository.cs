@@ -33,8 +33,7 @@ namespace SX.Common.Infrastructure.Services
             this.DbSet = this.DbContext.Set<TEntity>();
         }
 
-        #region IRepository<T>
-
+ 
         protected virtual int SaveChanges()
         {
             return DbContext.SaveChanges();
@@ -45,18 +44,9 @@ namespace SX.Common.Infrastructure.Services
             return this.DbSet.ToList();
         }
 
-        public virtual void AddFast(IEnumerable<TEntity> entities)
-        {
-            this.DbSet.AddRange(entities);
-        }
-
         public virtual void Add(IEnumerable<TEntity> entities)
         {
-            var result = new List<TEntity>();
-
-            if (entities != null)
-                foreach (var entity in entities)
-                    result.Add(this.Add(entity));
+            this.DbSet.AddRange(entities);
         }
 
         public virtual TEntity Add(TEntity entity)
@@ -152,9 +142,8 @@ namespace SX.Common.Infrastructure.Services
                 entry.State = EntityState.Detached;
         }
 
-        #endregion
+   
 
-        #region Functions
         protected void LoadNavigation(TEntity entity, Expression<Func<TEntity, object>> navigation)
         {
             var entry = this.DbContext.Entry(entity);
@@ -183,6 +172,5 @@ namespace SX.Common.Infrastructure.Services
 
             return Expression.Lambda<Func<TEntity, bool>>(fieldExpression, entityExpression);
         }
-        #endregion
     }
 }

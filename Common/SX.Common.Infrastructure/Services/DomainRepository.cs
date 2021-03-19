@@ -63,19 +63,12 @@ namespace SX.Common.Infrastructure.Services
 
         public virtual void Delete(TKey obj)
         {
-            if (obj is TEntity)
-            {
-                base.Delete(obj as TEntity);
-            }
-            else if (obj is TKey)
-            {
-                var entity = this.Get(obj);
+            var entity = this.Get(obj);
 
-                // if not found - assume already deleted...
-                if (entity == null) return;
+            // if not found - assume already deleted...
+            if (entity == null) return;
 
-                base.Delete(entity);
-            }
+            base.Delete(entity);
         }
 
         protected TEntity GetEntityByKey(IQueryable<TEntity> query, object key)

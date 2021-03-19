@@ -1,5 +1,6 @@
 ﻿using DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities;
 using DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Persons;
+using DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Todo;
 using Microsoft.EntityFrameworkCore;
 using SX.Common.Infrastructure.Data;
 

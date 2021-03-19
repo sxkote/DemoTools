@@ -10,7 +10,6 @@ namespace SX.Common.Shared.Contracts
     {
         IEnumerable<T> GetAll();
 
-        void AddFast(IEnumerable<T> entities);
         void Add(IEnumerable<T> entities);
 
         T Add(T entity);
