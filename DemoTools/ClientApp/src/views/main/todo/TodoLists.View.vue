@@ -64,7 +64,7 @@
         }
 
         getSelectedItemTitle(): string {
-            return this.selectedItem?.Title ?? "";
+            return (!this.selectedItem || !this.selectedItem.Title) ? "" : this.selectedItem.Title;
         }
 
         editList(list: TodoList): void {
@@ -72,7 +72,7 @@
             this.model = {
                 caption: "Edit Toto List",
                 placeholder: "todo list title",
-                title: this.selectedItem?.Title ?? ""
+                title: this.getSelectedItemTitle()
             };
             this.modalEdit = true;
         }

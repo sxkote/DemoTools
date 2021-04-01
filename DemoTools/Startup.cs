@@ -78,15 +78,18 @@ namespace DemoTools
 
             app.UseSpa(spa =>
             {
-                if (env.IsDevelopment())
-                    spa.Options.SourcePath = "ClientApp/";
-                else
-                    spa.Options.SourcePath = "dist";
+                spa.Options.SourcePath = "ClientApp/";
+                spa.UseVueCli(npmScript: "serve", forceKill: true);
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseVueCli(npmScript: "serve", forceKill: true);
-                }
+                //if (env.IsDevelopment())
+                //    spa.Options.SourcePath = "ClientApp/";
+                //else
+                //    spa.Options.SourcePath = "dist";
+
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseVueCli(npmScript: "serve", forceKill: true);
+                //}
             });
         }
     }

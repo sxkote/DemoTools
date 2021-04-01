@@ -37,8 +37,8 @@ namespace SX.Common.Shared.Services
             }
         }
 
-        static public DateTimeOffset Now
-        { get { return TimeZoneInfo.ConvertTime(DateTimeOffset.Now, TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time")); } }
+        static public DateTimeOffset Now => DateTimeOffset.Now;
+        //{ get { return TimeZoneInfo.ConvertTime(DateTimeOffset.Now, TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time")); } }
 
         static public Guid NewGuid => System.Guid.NewGuid();
         static public Guid ParseGuid(string input) => Guid.Parse(input);

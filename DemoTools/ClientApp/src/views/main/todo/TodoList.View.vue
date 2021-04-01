@@ -88,6 +88,10 @@
                 });;
         }
 
+        getSelectedItemTitle(): string {
+            return (!this.selectedItem || !this.selectedItem.Title) ? "" : this.selectedItem.Title;
+        }
+
         toggleItem(item: TodoItem): void {
             if (!item)
                 return;
@@ -104,7 +108,7 @@
             this.model = {
                 caption: "Edit Todo Item",
                 placeholder: "item title",
-                title: this.selectedItem?.Title ?? ""
+                title: this.getSelectedItemTitle()
             };
             this.modalEdit = true;
         }

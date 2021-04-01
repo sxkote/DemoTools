@@ -1,5 +1,5 @@
 var SYMBOLS = {
-    APIURL: 'http://localhost:59448/api/',
+    APIURL: '/api/',
     CONTAINER: Symbol("Container"),
     STORE: Symbol("Store"),
     IToken: Symbol("IToken"),
