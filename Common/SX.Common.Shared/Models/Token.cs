@@ -10,6 +10,7 @@ namespace SX.Common.Shared.Models
 
         public Guid TokenID { get; set; }
         public Guid UserID { get; set; }
+        public Guid SubscriptionID { get; set; }
         public string Login { get; set; }
         public string IP { get; set; }
         public string Name { get; set; }

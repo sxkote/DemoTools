@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace SX.Common.Infrastructure.Services
 {
     public class Repository<TDbContext, TEntity> : IRepository<TEntity>
-   where TDbContext : DbContext, new()
-    where TEntity : class
+        where TDbContext : DbContext, new()
+        where TEntity : class
     {
         protected const int MAX_ENTITIES_TO_QUERY = 1000;
 
@@ -33,7 +33,7 @@ namespace SX.Common.Infrastructure.Services
             this.DbSet = this.DbContext.Set<TEntity>();
         }
 
- 
+
         protected virtual int SaveChanges()
         {
             return DbContext.SaveChanges();
@@ -142,7 +142,7 @@ namespace SX.Common.Infrastructure.Services
                 entry.State = EntityState.Detached;
         }
 
-   
+
 
         protected void LoadNavigation(TEntity entity, Expression<Func<TEntity, object>> navigation)
         {

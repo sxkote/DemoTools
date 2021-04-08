@@ -1,6 +1,7 @@
 ﻿using DemoTools.Modules.Main.Domain.Entities.Todo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SX.Common.Infrastructure;
 
 namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Todo
 {
@@ -12,6 +13,9 @@ namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Todo
 
             builder.Property(t => t.ID)
                 .HasColumnName("TodoItemID");
+
+            builder.Property(t => t.Title).HasStringType();
+
         }
     }
 }

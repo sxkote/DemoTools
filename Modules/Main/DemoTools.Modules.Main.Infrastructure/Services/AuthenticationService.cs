@@ -145,6 +145,7 @@ namespace DemoTools.Modules.Main.Infrastructure.Services
             {
                 TokenID = CommonService.NewGuid,
                 UserID = person.User.ID,
+                SubscriptionID = person.SubscriptionID,
                 Login = person.User.Login,
                 Name = $"{person.Name.First} {person.Name.Last}",
                 IP = ip ?? "",

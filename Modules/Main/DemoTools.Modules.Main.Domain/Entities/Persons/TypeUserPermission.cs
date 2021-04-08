@@ -1,5 +1,6 @@
 ﻿using SX.Common.Domain.Entities;
 using SX.Common.Shared.Interfaces;
+using SX.Common.Shared.Services;
 
 namespace DemoTools.Modules.Main.Domain.Entities.Persons
 {
@@ -10,5 +11,16 @@ namespace DemoTools.Modules.Main.Domain.Entities.Persons
         public string Category { get; protected set; }
 
         protected TypeUserPermission() { }
+
+        static public TypeUserPermission Create(string name, string title, string category)
+        {
+            return new TypeUserPermission()
+            {
+                ID = CommonService.NewGuid,
+                Name = name,
+                Title = title ?? "",
+                Category = category ?? ""
+            };
+        }
     }
 }

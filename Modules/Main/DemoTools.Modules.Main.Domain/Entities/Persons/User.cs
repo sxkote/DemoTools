@@ -4,6 +4,7 @@ using SX.Common.Shared.Exceptions;
 using SX.Common.Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DemoTools.Modules.Main.Domain.Entities.Persons
 {
@@ -42,6 +43,25 @@ namespace DemoTools.Modules.Main.Domain.Entities.Persons
             //    this.PasswordDate = policy.NextPasswordDate();
         }
 
+        static public User Create(Guid id, string login, string password, IEnumerable<TypeUserRole> roles = null)
+        {
+            var user = new User()
+            {
+                ID = id,
+                Login = login,
+                Password = password
+            };
+
+            if (roles != null && roles.Count() > 0)
+                foreach (var role in roles)
+                {
+                    var userRole = UserRole.Create(user, role);
+                    user.UserRoles.Add(userRole);
+                }
+
+            return user;
+        }
+
     }
 
     public class UserRole
@@ -51,5 +71,16 @@ namespace DemoTools.Modules.Main.Domain.Entities.Persons
 
         public Guid UserRoleID { get; private set; }
         public TypeUserRole Role { get; private set; }
+
+        static public UserRole Create(User user, TypeUserRole role)
+        {
+            return new UserRole()
+            {
+                UserID = user.ID,
+                User = user,
+                UserRoleID = role.ID,
+                Role = role
+            };
+        }
     }
 }

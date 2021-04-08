@@ -1,12 +1,14 @@
 ﻿using SX.Common.Domain.Entities;
+using SX.Common.Shared.Interfaces;
 using SX.Common.Shared.Services;
 using System;
 using System.Collections.Generic;
 
 namespace DemoTools.Modules.Main.Domain.Entities.Todo
 {
-    public class TodoList : EntityGuid
+    public class TodoList : EntityGuid, ISubscription, IAccessible
     {
+        public Guid SubscriptionID { get; protected set; }
         public string Title { get; protected set; }
 
         public List<TodoItem> Items { get; protected set; }
@@ -16,18 +18,26 @@ namespace DemoTools.Modules.Main.Domain.Entities.Todo
             this.Items = new List<TodoItem>();
         }
 
+        public bool CheckAccess(IToken token)
+        {
+            return token != null && token.SubscriptionID == this.SubscriptionID;
+        }
+
         public void Change(string title)
         {
             this.Title = title;
         }
 
-        static public TodoList Create(string title)
+        static public TodoList Create(Guid subscriptionID, string title)
         {
             return new TodoList()
             {
                 ID = CommonService.NewGuid,
+                SubscriptionID = subscriptionID,
                 Title = title
             };
         }
+
+    
     }
 }

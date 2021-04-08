@@ -1,6 +1,7 @@
 ﻿using DemoTools.Modules.Main.Domain.Entities.Persons;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SX.Common.Infrastructure;
 
 namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Persons
 {
@@ -12,6 +13,9 @@ namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Pers
 
             builder.Property(t => t.ID)
                 .HasColumnName("UserID");
+
+            builder.Property(t => t.Login).HasStringType();
+            builder.Property(t => t.Password).HasStringType();
         }
     }
 }

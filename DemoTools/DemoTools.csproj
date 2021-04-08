@@ -28,6 +28,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="VueCliMiddleware" Version="5.0.0" />
@@ -45,6 +49,15 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\components\main\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\src\interfaces\main\todo - Copy.interface.js">
+      <DependentUpon>todo.interface.js</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\interfaces\main\todo - Copy.interface.js.map">
+      <DependentUpon>todo.interface.js.map</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>

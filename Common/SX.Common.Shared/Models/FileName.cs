@@ -1,4 +1,5 @@
 ﻿using SX.Common.Shared.Enums;
+using SX.Common.Shared.Services;
 using System;
 using System.IO;
 
@@ -41,10 +42,10 @@ namespace SX.Common.Shared.Models
             }
         }
 
-        //public string MimeType
-        //{
-        //    get { return System.Web.MimeMapping.GetMimeMapping(this.Name); }
-        //}
+        public string MimeType
+        {
+            get { return CommonService.GetMimeMapping(this.Name); }
+        }
 
         public FileType Type
         {

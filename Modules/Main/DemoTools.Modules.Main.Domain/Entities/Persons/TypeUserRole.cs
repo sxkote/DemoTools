@@ -51,6 +51,7 @@ namespace DemoTools.Modules.Main.Domain.Entities.Persons
         {
             var role = new TypeUserRole()
             {
+                ID = CommonService.NewGuid,
                 Name = name ?? "",
                 Title = title ?? ""
             };

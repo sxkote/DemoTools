@@ -1160,5 +1160,7 @@ namespace SX.Common.Shared.Services
             }
             return false;
         }
+
+        public static string GetMimeMapping(string filename) => MimeMappingsService.GetMimeMapping(filename);
     }
 }

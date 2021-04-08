@@ -7,6 +7,7 @@ namespace SX.Common.Shared.Interfaces
     {
         Guid TokenID { get; }
         Guid UserID { get; }
+        Guid SubscriptionID { get; set; }
         string Login { get; }
         string IP { get; }
         string Name { get; }

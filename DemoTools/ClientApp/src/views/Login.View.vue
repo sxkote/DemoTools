@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button class="btn btn-secondary" @click="register">Register</button>
+                                        <router-link :to="{ name: 'Registration'}" class="btn btn-secondary">Registration</router-link>
                                         <button class="btn btn-primary float-end" @click="authorize">Login</button>
                                     </div>
                                 </div>

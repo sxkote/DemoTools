@@ -1,6 +1,7 @@
 ﻿using DemoTools.Modules.Main.Domain.Entities.Persons;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SX.Common.Infrastructure;
 
 namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Persons
 {
@@ -14,6 +15,9 @@ namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Pers
             builder.Property(t => t.ID)
                 .HasColumnName("UserPermissionID");
 
+            builder.Property(t => t.Name).HasStringType();
+            builder.Property(t => t.Title).HasStringType();
+            builder.Property(t => t.Category).HasStringType();
         }
     }
 }

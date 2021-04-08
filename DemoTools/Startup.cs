@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SX.Common.Api.Classes;
 using SX.Common.Api.Services;
 using SX.Common.Infrastructure.Services;
+using SX.Common.Shared.Classes;
 using SX.Common.Shared.Contracts;
 using VueCliMiddleware;
 
@@ -44,8 +45,10 @@ namespace DemoTools
 
             services.AddHttpContextAccessor();
 
-
             MainModuleConfiguration.Config(Configuration, services, mvcBuilder);
+
+            var resolver = new ServiceProviderResolver(services.BuildServiceProvider());
+            AppSettings.Global.DependencyResolver = resolver;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
