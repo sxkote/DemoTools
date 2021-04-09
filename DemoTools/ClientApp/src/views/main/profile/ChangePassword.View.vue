@@ -2,38 +2,44 @@
     <div class="container">
         <div class="row">
             <div class="offset-4 col-4">
-                <Loader v-bind:isLoading="isLoading" title="authorization...">
+                <Loader v-bind:isLoading="isLoading" title="changing password...">
                     <template v-slot>
                         <div class="panel panel-default border">
                             <div class="panel-body container">
                                 <div class="row mb-4">
                                     <div class="col text-center">
-                                        <h2 class="text-dark">Authorization</h2>
+                                        <h2 class="text-dark">Change Password</h2>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <input type="text" placeholder="Login" class="form-control" v-model="login" required />
+                                            <label class="control-label">Password</label>
+                                            <input type="password" placeholder="Password" class="form-control" v-model="model.PasswordCurrent" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <input type="password" placeholder="Password" class="form-control" v-model="password" required />
+                                            <label class="control-label">Password</label>
+                                            <input type="password" placeholder="Password" class="form-control" v-model="model.Password" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <div class="col-12 text-right">
-                                        <router-link :to="{ name: 'PasswordRecovery'}" class="">Forget your password?</router-link>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Confirm Password</label>
+                                            <input type="password" placeholder="Password" class="form-control" v-model="model.PasswordConfirm" required />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <router-link :to="{ name: 'Registration'}" class="btn btn-secondary">Registration</router-link>
-                                        <button class="btn btn-primary float-end" @click="authorize">Login</button>
+                                        <div>
+                                            <button class="btn btn-primary float-end" @click="changePassword">Change Password</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -52,50 +58,47 @@
     import { Container } from "inversify";
     import SYMBOLS from '@/configs/symbols';
     import router from '@/configs/router.config';
-    import { IAuthenticationService, ICommonService } from '@/interfaces/interfaces';
     import Loader from '@/components/Loader.vue';
+    import { IChangePasswordModel, IProfileService } from '../../../interfaces/main/profile.interface';
+    import { ICommonService } from '../../../interfaces/interfaces';
 
     @Options({
         components: {
             Loader
         },
     })
-    export default class Login extends Vue {
-        private authService: IAuthenticationService;
+    export default class ChangePasswordView extends Vue {
+        private profileService: IProfileService;
         private commonService: ICommonService;
 
         @Inject(SYMBOLS.CONTAINER)
         private _container: Container;
 
-        login: string = "";
-        password: string = "";
+        model: IChangePasswordModel = {
+            PasswordCurrent: "",
+            Password: "",
+            PasswordConfirm: ""
+        };
         isLoading: boolean = false;
 
         created(): void {
             this.commonService = this._container.get<ICommonService>(SYMBOLS.ICommonService);
-            this.authService = this._container.get<IAuthenticationService>(SYMBOLS.IAuthenticationService);
+            this.profileService = this._container.get<IProfileService>(SYMBOLS.IProfileService);
         }
 
-        authorize() {
+        changePassword() {
             var $self = this;
             this.isLoading = true;
-            this.authService.authenticate(this.login, this.password)
-                .then(token => {
-                    //$self.$store.dispatch('setToken', { token: token });
+            this.profileService.changePassword(this.model)
+                .then((data:any) => {
+                    $self.commonService.webNotifyOk("Your password has been changed!");
                     $self.isLoading = false;
-                    $self.commonService.webNotifyInfo("Welcome back, " + token.Name + "!");
-                    router.push({ name: 'TodoLists'});
+                    router.push({ name: 'Profile' });
                 })
                 .catch(err => {
+                    $self.commonService.webNotifyException(err);
                     $self.isLoading = false;
-                    $self.commonService.webNotifyError("Login Failed! Please verify your login and password");
-                    console.log(err);
                 });
-        }
-
-        register() {
-            var value = this.$store.getters.userName;
-            console.log('current token: ' + value);
         }
     }
 </script>

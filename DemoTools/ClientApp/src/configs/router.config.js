@@ -14,7 +14,22 @@ const routes = [
     {
         path: "/Registration",
         name: "Registration",
-        component: () => import(/* webpackChunkName: "about" */ '@/views/Registration.View.vue')
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/profile/Registration.View.vue')
+    },
+    {
+        path: "/PasswordRecovery",
+        name: "PasswordRecovery",
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/profile/PasswordRecovery.View.vue')
+    },
+    {
+        path: "/Profile",
+        name: "Profile",
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/profile/Profile.View.vue')
+    },
+    {
+        path: "/Profile/ChangePassword",
+        name: "ChangePassword",
+        component: () => import(/* webpackChunkName: "about" */ '@/views/main/profile/ChangePassword.View.vue')
     },
     {
         path: "/Todo",

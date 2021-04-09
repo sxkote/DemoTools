@@ -31,3 +31,11 @@ export interface ILogger {
     log(message: string): void;
 }
 
+export interface ICommonService {
+    webNotify(message: string, type: string): void;
+    webNotifyOk(message: string): void;
+    webNotifyError(message: string): void;
+    webNotifyInfo(message: string): void;
+    webNotifyException(err: any): void;
+}
+

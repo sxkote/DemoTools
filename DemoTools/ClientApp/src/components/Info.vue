@@ -6,9 +6,10 @@
             <li>ASP.NET Core 5.0 API</li>
             <li>PostgreSQL</li>
             <li>Entity Framework Core</li>
+            <li>Migrations</li>
             <li>Docker</li>
             <li>Git</li>
-            <li>Vue Js 3.0</li>
+            <li>VUE 3.0 (Vuex)</li>
             <li>TypeScript</li>
             <li>JavaScript</li>
             <li>Bootstrap</li>

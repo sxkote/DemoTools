@@ -2,7 +2,7 @@
 
 namespace DemoTools.Modules.Main.Shared.DomainEvents
 {
-    public class PersonRegistrationInited : IDomainEvent
+    public class PasswordRecoveryInitDomainEvent : IDomainEvent
     {
         public string Email { get; set; }
         public string Login { get; set; }

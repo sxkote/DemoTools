@@ -24,13 +24,15 @@ namespace DemoTools.Modules.Main.Api
             // Services
             services.AddScoped<ICaptchaService, CaptchaService>();
             services.AddScoped<IAuthenticationProvider, AuthenticationService>();
-            services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<IProfileService, ProfileService>();
 
             services.AddScoped<IMainUnitOfWork, MainUnitOfWork>();
             services.AddScoped<ITodoService, TodoService>();
 
             // Domain-Events
-            services.AddScoped<IDomainEventHandler<PersonRegistrationInited>, MainNotificationService>();
+            services.AddScoped<IDomainEventHandler<RegistrationInitDomainEvent>, MainNotificationService>();
+            services.AddScoped<IDomainEventHandler<PasswordRecoveryInitDomainEvent>, MainNotificationService>();
+            services.AddScoped<IDomainEventHandler<PasswordChangedDomainEvent>, MainNotificationService>();
 
             mvcBuilder.AddApplicationPart(Assembly.GetAssembly(typeof(MainModuleConfiguration)));
         }

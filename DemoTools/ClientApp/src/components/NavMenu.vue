@@ -28,9 +28,10 @@
                                 {{userName}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!--<a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>-->
+                                <router-link :to="{ name: 'Profile' }" tag="a" class="dropdown-item">Profile</router-link>
+                                <!--<router-link :to="{ name: 'ChangePassword' }" tag="a" class="dropdown-item">Change Password</router-link>-->
+                                <!--<a class="dropdown-item" href="#">Another action</a>-->
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" @click="logout()">Logout</a>
                             </div>
                         </li>
@@ -69,7 +70,7 @@
     import { Inject } from 'vue-property-decorator';
     import { Container } from "inversify";
     import SYMBOLS from '@/configs/symbols';
-    import { IAuthenticationService } from '../interfaces/interfaces';
+    import { IAuthenticationService, ICommonService } from '../interfaces/interfaces';
     import router from '@/configs/router.config';
 
     export default class NavMenu extends Vue {
@@ -77,10 +78,12 @@
         private _container: Container;
 
         private authService: IAuthenticationService;
+        private commonService: ICommonService;
 
         isExpanded: boolean = false;
 
         created(): void {
+            this.commonService = this._container.get<ICommonService>(SYMBOLS.ICommonService);
             this.authService = this._container.get<IAuthenticationService>(SYMBOLS.IAuthenticationService);
         }
 
@@ -105,6 +108,7 @@
 
         logout(): void {
             this.authService.logout();
+            this.commonService.webNotifyInfo("You have logged out!")
             router.push({ name: 'Home' });
         }
     }

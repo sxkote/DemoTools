@@ -2,36 +2,20 @@
     <div class="container">
         <div class="row">
             <div class="offset-4 col-4">
-                <Loader v-bind:isLoading="isLoading" title="registration...">
+                <Loader v-bind:isLoading="isLoading" title="password recovery...">
                     <template v-slot>
                         <div class="panel panel-default border">
                             <div class="panel-body container">
                                 <div class="row mb-4">
                                     <div class="col text-center">
-                                        <h2 class="text-dark">Registration</h2>
+                                        <h2 class="text-dark">Password Recovery</h2>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label class="control-label">Email</label>
-                                            <input type="email" placeholder="john-doe@gmail.com" class="form-control" v-model="model.Email" required />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label class="control-label">First Name</label>
-                                            <input type="text" placeholder="John" class="form-control" v-model="model.NameFirst" required />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label class="control-label">Last Name</label>
-                                            <input type="text" placeholder="Doe" class="form-control" v-model="model.NameLast" required />
+                                            <label class="control-label">Login</label>
+                                            <input type="text" placeholder="john-doe@gmail.com" class="form-control" v-model="model.Login" required />
                                         </div>
                                     </div>
                                 </div>
@@ -62,10 +46,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div v-if="isInited">
-                                            <button class="btn btn-primary float-end" @click="registrationConfirm">Complete Registration</button>
+                                            <button class="btn btn-primary float-end" @click="passwordRecoveryConfirm">Complete Recovery</button>
                                         </div>
                                         <div v-else>
-                                            <button class="btn btn-primary float-end" @click="registrationInit">Start Registration</button>
+                                            <button class="btn btn-primary float-end" @click="passwordRecoveryInit">Start Recovery</button>
                                         </div>
                                     </div>
                                 </div>
@@ -86,26 +70,23 @@
     import SYMBOLS from '@/configs/symbols';
     import router from '@/configs/router.config';
     import Loader from '@/components/Loader.vue';
-    import { IRegistrationModel, IRegistrationService } from '../interfaces/main/registration.interface';
+    import { IPasswordRecoveryModel, IProfileService } from '../../../interfaces/main/profile.interface';
 
     @Options({
         components: {
             Loader
         },
     })
-    export default class RegistrationView extends Vue {
-        private registrationService: IRegistrationService;
+    export default class PasswordRecoveryView extends Vue {
+        private profileService: IProfileService;
 
         @Inject(SYMBOLS.CONTAINER)
         private _container: Container;
 
         activityID: string;
         pin: string = "";
-        model: IRegistrationModel = {
+        model: IPasswordRecoveryModel = {
             Login: "",
-            Email: "",
-            NameFirst: "",
-            NameLast: "",
             Password: "",
             PasswordConfirm: ""
         };
@@ -113,15 +94,15 @@
         isInited: boolean = false;
 
         created(): void {
-            this.registrationService = this._container.get<IRegistrationService>(SYMBOLS.IRegistrationService);
+            this.profileService = this._container.get<IProfileService>(SYMBOLS.IProfileService);
         }
 
-        registrationInit() {
+        passwordRecoveryInit() {
             var $self = this;
             this.isLoading = true;
-            this.registrationService.registrationInit(this.model)
+            this.profileService.passwordRecoveryInit(this.model)
                 .then((data:any) => {
-                    $self.activityID = data.ActivityID;
+                    $self.activityID = data;
                     $self.isLoading = false;
                     $self.isInited = true;
                 })
@@ -130,10 +111,10 @@
                 });
         }
 
-        registrationConfirm() {
+        passwordRecoveryConfirm() {
             var $self = this;
             this.isLoading = true;
-            this.registrationService.registrationConfirm(this.activityID, this.pin)
+            this.profileService.passwordRecoveryConfirm(this.activityID, this.pin)
                 .then(() => {
                     $self.isLoading = false;
                     router.push({ name: 'Login' });

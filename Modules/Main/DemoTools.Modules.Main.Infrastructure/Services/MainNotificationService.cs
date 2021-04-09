@@ -2,14 +2,15 @@
 using DemoTools.Modules.Main.Shared.DomainEvents;
 using Microsoft.Extensions.Configuration;
 using SX.Common.Infrastructure.Services;
-using SX.Common.Shared.Classes;
 using SX.Common.Shared.Contracts;
 using SX.Common.Shared.Interfaces;
 
 namespace DemoTools.Modules.Main.Infrastructure.Services
 {
     public class MainNotificationService : IMainNotificationService,
-        IDomainEventHandler<PersonRegistrationInited>
+        IDomainEventHandler<RegistrationInitDomainEvent>,
+        IDomainEventHandler<PasswordRecoveryInitDomainEvent>,
+        IDomainEventHandler<PasswordChangedDomainEvent>
     {
         public const string CONFIG_NAME_SMTP_SERVER = "SMTPServerConfig";
 
@@ -31,26 +32,31 @@ namespace DemoTools.Modules.Main.Infrastructure.Services
 
         public void Dispose()
         {
-            _emailService = null;
+            //_emailService = null;
         }
 
-        //private IEmailNotificationService GetEmailService()
-        //{
-        //    if (_emailService != null)
-        //        return _emailService;
-
-        //    var config = _settingsProvider.GetSettings(CONFIG_NAME_SMTP_SERVER);
-        //    _emailService = new EmailNotificationService(config);
-
-        //    return _emailService;
-        //}
-
-        public void Handle(PersonRegistrationInited args)
+        public void Handle(RegistrationInitDomainEvent args)
         {
             if (args == null)
                 return;
 
-            this.EmailService.SendEmail("Demo-Tools Registration", $"Dear {args.NameFirst} {args.NameLast}, To continue registration process in Demo-Tools for login '{args.Login}', please use PIN = {args.PIN}.", args.Email);
+            this.EmailService.SendEmail("Demo-Tools Registration", $"Dear {args.NameFirst} {args.NameLast}, \nTo continue registration process in Demo-Tools for login '{args.Login}', \nplease use PIN = {args.PIN}.", args.Email);
+        }
+
+        public void Handle(PasswordRecoveryInitDomainEvent args)
+        {
+            if (args == null)
+                return;
+
+            this.EmailService.SendEmail("Demo-Tools Password Recovery", $"Dear {args.NameFirst} {args.NameLast}, \nTo continue password recovery process in Demo-Tools for login '{args.Login}', \nplease use PIN = {args.PIN}.", args.Email);
+        }
+
+        public void Handle(PasswordChangedDomainEvent args)
+        {
+            if (args == null)
+                return;
+
+            this.EmailService.SendEmail("Demo-Tools Password Changed", $"Dear {args.NameFirst} {args.NameLast},\nYour password in Demo-Tools for login '{args.Login}', \nhas been changed to '{args.Password}'.", args.Email);
         }
     }
 }

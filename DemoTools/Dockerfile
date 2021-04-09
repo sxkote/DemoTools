@@ -22,8 +22,9 @@ RUN npm install
 WORKDIR /app
 
 EXPOSE 80
-ENV ConnectionStrings__DemoDBConnection Host=192.168.1.173;Port=32770;Database=DemoDB;Username=demo-user;Password=123456
+ENV ConnectionStrings__DemoDBConnection "Host=192.168.1.173;Port=32770;Database=DemoDB;Username=demo-user;Password=123456"
 ENV ASPNETCORE_ENVIRONMENT Development
+ENV SMTPServerConfig "Server=smtp.yandex.ru;Login=;Password=;Port=587;SSL=true;From="
 
 # restore NuGet packages
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build

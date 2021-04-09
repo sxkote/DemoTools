@@ -1,10 +1,11 @@
-using DemoTools.Modules.Main.Api;
+﻿using DemoTools.Modules.Main.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SX.Common.Api.Classes;
+using SX.Common.Api.Filters;
 using SX.Common.Api.Services;
 using SX.Common.Infrastructure.Services;
 using SX.Common.Shared.Classes;
@@ -29,9 +30,18 @@ namespace DemoTools
             services.AddSingleton<ICacheProvider>(x => new MemoryCacheProvider());
 
 
-            var mvcBuilder = services.AddControllersWithViews()
-                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            var mvcBuilder = services.AddControllersWithViews(options =>
+            {
+                // добавляем фильтр для обработки исключений
+                options.Filters.Add(new ApiExceptionFilter());
+            })
+            .AddJsonOptions(options =>
+            {
+                // определяем CamelCase для свойств JSON объектов
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
 
+            // регистрируем SPA приложение в подпапке
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp";

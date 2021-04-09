@@ -1,9 +1,9 @@
 ﻿using SX.Common.Shared.Enums;
 using System;
 
-namespace DemoTools.Modules.Main.Shared.Models.Registration
+namespace DemoTools.Modules.Main.Shared.Models.Profile
 {
-    public class RegistrationModel
+    public class ProfileRegistrationModel
     {
         public string Login { get; set; }
         public string Email { get; set; }
@@ -17,5 +17,7 @@ namespace DemoTools.Modules.Main.Shared.Models.Registration
 
 
         public string GetValidLogin() => String.IsNullOrWhiteSpace(this.Login) ? this.Email : this.Login;
+
+        public bool IsPasswordMatch() => this.Password == this.PasswordConfirm;
     }
 }

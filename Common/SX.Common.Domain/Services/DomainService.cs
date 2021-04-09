@@ -106,14 +106,14 @@ namespace SX.Common.Domain.Services
     public abstract class DomainService<TUnitOfWork> : DomainService, IDomainService<TUnitOfWork>
        where TUnitOfWork : IDomainUnitOfWork
     {
-        protected TUnitOfWork _uow;
+        protected TUnitOfWork _unitOfWork;
 
-        public TUnitOfWork UnitOfWork { get { return _uow; } }
+        public TUnitOfWork UnitOfWork { get { return _unitOfWork; } }
 
-        public DomainService(TUnitOfWork uow, ITokenProvider tokenProvider)
+        public DomainService(TUnitOfWork unitOfWork, ITokenProvider tokenProvider)
             : base(tokenProvider)
         {
-            _uow = uow;
+            _unitOfWork = unitOfWork;
         }
 
         protected void SaveChanges()

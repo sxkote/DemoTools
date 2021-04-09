@@ -19,28 +19,23 @@ namespace DemoTools.Modules.Main.Domain.Entities.Persons
             this.UserRoles = new List<UserRole>();
         }
 
-        public void ChangePassword(SecurityPolicy policy, string password, bool resetPasswordDate)
+        public void ChangePassword(SecurityPolicy policy, string password)
         {
             if (policy == null)
-                throw new CustomArgumentException("Не заданы политики авторизации!");
+                throw new CustomArgumentException("Security Policy is not provided!");
 
             if (String.IsNullOrWhiteSpace(password))
-                throw new CustomInputException("Не задан пароль для изменения!");
+                throw new CustomInputException("Password is empty!");
 
             if (!policy.CheckStrength(password))
-                throw new CustomInputException("Пароль не отвечает требованиям безопасности!");
+                throw new CustomInputException("Password does not match securuty policy!");
 
             var hash = policy.HashPassword(password);
 
             if (!String.IsNullOrWhiteSpace(this.Password) && !policy.CanReuse && hash.Equals(this.Password, CommonService.StringComparison))
-                throw new CustomInputException("Пароль уже был использован ранее!");
+                throw new CustomInputException("Password was used already!");
 
             this.Password = hash;
-
-            //if (resetPasswordDate)
-            //    this.ResetPasswordDate();
-            //else
-            //    this.PasswordDate = policy.NextPasswordDate();
         }
 
         static public User Create(Guid id, string login, string password, IEnumerable<TypeUserRole> roles = null)

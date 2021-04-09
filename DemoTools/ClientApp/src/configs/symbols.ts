@@ -4,8 +4,9 @@
     STORE: Symbol("Store"),
     IToken: Symbol("IToken"),
     ILogger: Symbol("ILogger"),
+    ICommonService: Symbol("ICommonService"),
     IAuthenticationService: Symbol("IAuthenticationService"),
-    IRegistrationService: Symbol("IRegistrationService"),
+    IProfileService: Symbol("IProfileService"),
     ITodoService: Symbol("ITodoService"),
 };
 
