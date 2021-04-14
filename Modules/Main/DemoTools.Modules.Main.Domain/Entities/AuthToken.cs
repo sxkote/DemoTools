@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SX.Common.Domain.Entities;
-using SX.Common.Shared.Classes;
+using SX.Common.Shared.Classes.Json;
 using SX.Common.Shared.Exceptions;
 using SX.Common.Shared.Interfaces;
 using SX.Common.Shared.Services;

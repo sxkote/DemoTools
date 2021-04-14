@@ -6,8 +6,6 @@ namespace SX.Common.Shared.Contracts
     {
         object this[string key] { get; }
 
-        //bool Contains(string key);
-
         object Get(string key);
         T Get<T>(string key) where T : class;
 

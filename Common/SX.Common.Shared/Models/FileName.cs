@@ -44,7 +44,7 @@ namespace SX.Common.Shared.Models
 
         public string MimeType
         {
-            get { return CommonService.GetMimeMapping(this.Name); }
+            get { return MimeMappingsService.GetMimeMapping(this.Name); }
         }
 
         public FileType Type

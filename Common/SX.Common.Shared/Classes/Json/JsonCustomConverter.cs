@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Reflection;
 
-namespace SX.Common.Shared.Classes
+namespace SX.Common.Shared.Classes.Json
 {
     public abstract class JsonCustomConverter<T> : JsonConverter
     {

@@ -1,7 +1,6 @@
 ﻿using DemoTools.Modules.Main.Domain.Entities.Todo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SX.Common.Infrastructure;
 
 namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities.Todo
 {

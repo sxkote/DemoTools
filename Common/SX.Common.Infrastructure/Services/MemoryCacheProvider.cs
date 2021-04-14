@@ -32,14 +32,14 @@ namespace SX.Common.Infrastructure.Services
 
         public object Get(string key)
         {
-            object result;
-            return _cache.TryGetValue(key, out result) ? result : null;
+            //object result;
+            return _cache.TryGetValue(key, out object result) ? result : null;
         }
 
         public T Get<T>(string key) where T : class
         {
-            T result;
-            return _cache.TryGetValue<T>(key, out result) ? result : default(T);
+            //T result;
+            return _cache.TryGetValue<T>(key, out T result) ? result : default(T);
         }
 
         public void Set<T>(string key, T value, TimeSpan timespan)

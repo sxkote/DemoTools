@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using SX.Common.Shared.Models;
 using System;
 
-namespace SX.Common.Shared.Classes
+namespace SX.Common.Shared.Classes.Json
 {
     public class JsonCustomValueConverter : JsonCustomConverter<CustomValue>
     {

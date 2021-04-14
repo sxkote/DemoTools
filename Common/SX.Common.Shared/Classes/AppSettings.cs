@@ -7,78 +7,46 @@ using System.Collections.Generic;
 
 namespace SX.Common.Shared.Classes
 {
-    public class AppSettings : ISettingsProvider
+    public class AppSettings
     {
         static public AppSettings Global { get; private set; }
-
-        public IDependencyResolver DependencyResolver { get; set; }
-
-        protected AppConfig _application;
-        public AppConfig Application
-        {
-            get
-            {
-                if (_application == null)
-                    _application = this.GetSettings<AppConfig>("AppConfig");
-                return _application;
-            }
-        }
-
-        //public bool IsTest() => this.Application.Mode  == AppMode.Test;
-        public bool IsProduction() => this.Application.Mode == AppMode.Production;
-        public bool IsDevelopment() => this.Application.Mode == AppMode.Development;
-        public bool CanTrace() => this.Application.Trace;
-
-        //public Guid DefaultClientID => this.Application.ClientID;
-        //public Guid DefaultPersonID => this.Application.PersonID;
-        //public bool UseZZZ => this.Application.UseZZZ == null || this.Application.UseZZZ.Value;
 
         static AppSettings()
         {
             Global = new AppSettings();
         }
 
-        protected AppSettings() { }
 
 
+        public IDependencyResolver DependencyResolver { get; set; }
 
-        public string GetSettings(string name)
+        protected AppConfig _config;
+        public AppConfig Config
         {
-            return System.Configuration.ConfigurationManager.AppSettings[name];
-        }
-
-        public T GetSettings<T>(string name)
-        {
-            try
+            get
             {
-                return CommonService.Deserialize<T>(this.GetSettings(name));
+                if (_config == null)
+                {
+                    var settingsProvider = this.DependencyResolver.Resolve<ISettingsProvider>();
+                    _config = settingsProvider.GetSettings<AppConfig>("AppConfig");
+                }
+                return _config;
             }
-            catch { return default(T); }
         }
 
 
+        public AppMode Mode => this.Config.Mode;
+        public bool IsTest() => this.Config.Mode  == AppMode.Test;
+        public bool IsProduction() => this.Config.Mode == AppMode.Production;
+        public bool IsDevelopment() => this.Config.Mode == AppMode.Development;
+        public bool CanTrace() => this.Config.Trace;
 
-        static protected AppMode DefineAppMode(string value)
-        {
-            if (value.Equals("production", StringComparison.OrdinalIgnoreCase) || value.Equals("prod", StringComparison.OrdinalIgnoreCase))
-                return AppMode.Production;
-            if (value.Equals("test", StringComparison.OrdinalIgnoreCase))
-                return AppMode.Test;
 
-            return AppMode.Development;
-        }
+        public AppSettings() { }
 
-        static public string GetGlobalSettings(string name)
-        {
-            return AppSettings.Global.GetSettings(name);
-        }
 
-        static public T GetGlobalSettings<T>(string name)
-        {
-            return AppSettings.Global.GetSettings<T>(name);
-        }
 
-        static public T Resolve<T>()
+        public T Resolve<T>()
         {
             var resolver = AppSettings.Global.DependencyResolver;
 
@@ -88,7 +56,7 @@ namespace SX.Common.Shared.Classes
             return resolver.Resolve<T>();
         }
 
-        static public IEnumerable<T> ResolveAll<T>()
+        public IEnumerable<T> ResolveAll<T>()
         {
             var resolver = AppSettings.Global.DependencyResolver;
 
@@ -98,8 +66,5 @@ namespace SX.Common.Shared.Classes
             return resolver.ResolveAll<T>();
         }
 
-
-        static public ILogger GetLogger() => AppSettings.Resolve<ILogger>();
-        //static public IMonitoring GetMonitoring() => AppSettings.Resolve<IMonitoring>();
     }
 }

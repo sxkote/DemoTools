@@ -1,4 +1,5 @@
 ﻿using SX.Common.Domain.Entities;
+using SX.Common.Shared.Classes;
 using SX.Common.Shared.Models;
 using SX.Common.Shared.Services;
 using System;

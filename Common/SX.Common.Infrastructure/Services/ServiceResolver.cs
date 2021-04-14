@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace SX.Common.Infrastructure.Services
 {
-    public class ServiceProviderResolver : IDependencyResolver
+    public class ServiceResolver : IDependencyResolver
     {
         protected IServiceScope _scope = null;
         protected IServiceProvider _serviceProvider;
 
-        public ServiceProviderResolver(IServiceProvider services, IServiceScope scope = null)
+        public ServiceResolver(IServiceProvider services, IServiceScope scope = null)
         {
             _serviceProvider = services;
             _scope = scope;
@@ -19,7 +19,7 @@ namespace SX.Common.Infrastructure.Services
         public IDependencyResolver CreateScope()
         {
             var scope = _serviceProvider.CreateScope();
-            return new ServiceProviderResolver(scope?.ServiceProvider, scope);
+            return new ServiceResolver(scope?.ServiceProvider, scope);
         }
 
         public void Dispose()

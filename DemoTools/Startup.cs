@@ -27,6 +27,7 @@ namespace DemoTools
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ITokenProvider, ApiTokenProvider>();
+            services.AddSingleton<ISettingsProvider, SettingsProvider>();
             services.AddSingleton<ICacheProvider>(x => new MemoryCacheProvider());
 
 
@@ -57,7 +58,7 @@ namespace DemoTools
 
             MainModuleConfiguration.Config(Configuration, services, mvcBuilder);
 
-            var resolver = new ServiceProviderResolver(services.BuildServiceProvider());
+            var resolver = new ServiceResolver(services.BuildServiceProvider());
             AppSettings.Global.DependencyResolver = resolver;
         }
 

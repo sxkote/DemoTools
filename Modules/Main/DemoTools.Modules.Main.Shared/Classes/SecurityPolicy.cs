@@ -17,28 +17,21 @@ namespace DemoTools.Modules.Main.Shared.Classes
         {
             get
             {
-                var policy = AppSettings.Global.GetSettings<SecurityPolicy>(SETTINGS_NAME);
-
-                if (policy == null)
+                return new SecurityPolicy()
                 {
-                    policy = new SecurityPolicy()
-                    {
-                        HashMethod = HashType.BCrypt,
-                        VerifyMethod = HashType.BCrypt | HashType.MD5 | HashType.None,
-                        Validity = 0,
-                        MinLength = 6,
-                        UseLetters = 0,
-                        UseCapitals = 0,
-                        UseDigits = 0,
-                        UseSpecials = 0,
-                        CanReuse = true,
-                        BlockAttempts = 10,
-                        BlockInterval = 30,
-                        BlockPeriod = 60
-                    };
-                }
-
-                return policy;
+                    HashMethod = HashType.BCrypt,
+                    VerifyMethod = HashType.BCrypt | HashType.MD5 | HashType.None,
+                    Validity = 0,
+                    MinLength = 6,
+                    UseLetters = 0,
+                    UseCapitals = 0,
+                    UseDigits = 0,
+                    UseSpecials = 0,
+                    CanReuse = true,
+                    BlockAttempts = 10,
+                    BlockInterval = 30,
+                    BlockPeriod = 60
+                };
             }
         }
 

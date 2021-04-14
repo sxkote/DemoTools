@@ -25,15 +25,20 @@ namespace DemoTools.Modules.Main.Infrastructure.Services
 
 
         private readonly MainDbContext _dbContext;
+        private readonly ISettingsProvider _settingsProvider;
         private readonly ICacheProvider _cacheProvider;
 
-        public AuthenticationService(MainDbContext dbContext, ICacheProvider cacheProvider)
+        public AuthenticationService(MainDbContext dbContext, ISettingsProvider settingsProvider, ICacheProvider cacheProvider)
         {
             _dbContext = dbContext;
+            _settingsProvider = settingsProvider;
             _cacheProvider = cacheProvider;
         }
 
-        protected SecurityPolicy GetSecurityPolicy() => SecurityPolicy.DEFAULT;
+        protected SecurityPolicy GetSecurityPolicy()
+        {
+            return _settingsProvider.GetSettings<SecurityPolicy>("SecurityPolicy") ?? SecurityPolicy.DEFAULT;
+        }
 
         protected void SaveTokenToCache(Token token)
         {

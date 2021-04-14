@@ -105,25 +105,5 @@ namespace SX.Common.Shared.Classes
             return result;
         }
 
-        //public static void Raise(params IDomainEventHolder[] holders)
-        //{
-        //    holders
-        //        .SelectMany(h => h.Events)
-        //        .ToList()
-        //        .ForEach(e => Raise(e));
-
-        //    holders
-        //        .ToList()
-        //        .ForEach(h => h.Clear());
-        //}
-
-        //public static void Raise(IDomainEvent args)
-        //{
-        //    typeof(DomainDispatcher)
-        //        .GetMethods()
-        //        .FirstOrDefault(m => m.Name == nameof(Raise) && m.IsGenericMethod)
-        //        .MakeGenericMethod(args.GetType())
-        //        .Invoke(new object(), new object[] { args });
-        //}
     }
 }

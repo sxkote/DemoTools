@@ -48,7 +48,6 @@ namespace SX.Common.Api.Classes
             if (string.IsNullOrEmpty(tokenCode))
                 return Unauthorized(); 
 
-
             try
             {
                 return ValidateToken(tokenCode);

@@ -6,9 +6,5 @@ namespace SX.Common.Shared.Contracts
     {
         IToken Authenticate(string login, string password, string ip = null);
         IToken Authenticate(string token);
-
-        //IToken AuthenticateConfirm(Guid activityCode, string pin);
-
-        //IToken Authenticate(Guid userID);
     }
 }

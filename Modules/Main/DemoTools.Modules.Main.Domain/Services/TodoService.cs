@@ -24,7 +24,7 @@ namespace DemoTools.Modules.Main.Domain.Services
             var token = _tokenProvider.GetToken();
 
             var list = this.TodoListRepo.GetTracking(listID);
-            if (!list.CheckAccess(token))
+            if (!list.HasAccess(token))
                 return null;
 
             return list;
@@ -35,7 +35,7 @@ namespace DemoTools.Modules.Main.Domain.Services
             var token = _tokenProvider.GetToken();
 
             return this.TodoListRepo.GetAll(token.SubscriptionID)
-                .Where(t => t.CheckAccess(token))
+                .Where(t => t.HasAccess(token))
                 .ToList();
         }
         public TodoList GetList(Guid listID)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SX.Common.Infrastructure
+namespace DemoTools.Modules.Main.Infrastructure.Data
 {
     public static class Extensions
     {

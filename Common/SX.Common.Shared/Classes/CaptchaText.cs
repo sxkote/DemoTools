@@ -4,7 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace SX.Common.Shared.Services
+namespace SX.Common.Shared.Classes
 {
     /// <summary>
     /// Summary description for CaptchaImage.

@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
 
-namespace SX.Common.Shared.Classes
+namespace SX.Common.Shared.Classes.Json
 {
     public class JsonPrivateContractResolver : DefaultContractResolver
     {
