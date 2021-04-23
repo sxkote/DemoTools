@@ -14,6 +14,10 @@ $color-bg-gray: #efefef;
   cursor: pointer;
 }
 
+.strike{
+  text-decoration: line-through;
+}
+
 .link {
   cursor: pointer;
   color: $color-link;
@@ -28,7 +32,6 @@ h2 {
   //color: $color-link;
   //font-weight: bold;
 }
-
 
 .list-group {
   .list-group-item {

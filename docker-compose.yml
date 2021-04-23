@@ -3,7 +3,7 @@ services:
   envoyproxy:
     build: 
       context: .
-      dockerfile: Envoy/Dockerfile
+      dockerfile: ../Envoy/Dockerfile
     ports:
       - "9901:9901"
       - "10000:10000"
@@ -12,7 +12,7 @@ services:
   coreapi:
     build: 
       context: .
-      dockerfile: MicroServices/Authorization/DemoTools.Authorization.Api/Dockerfile
+      dockerfile: ../MicroServices/Core/DemoTools.Core.Api/Dockerfile
     ports: 
       - "8090:80"
     environment:
@@ -24,7 +24,7 @@ services:
   recordsapi:
     build: 
       context: .
-      dockerfile: MicroServices/Records/DemoTools.Records.Api/Dockerfile
+      dockerfile: ../MicroServices/Records/DemoTools.Records.Api/Dockerfile
     ports: 
       - "8092:80"
     environment:

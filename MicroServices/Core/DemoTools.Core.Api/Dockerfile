@@ -1,12 +1,15 @@
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 #EXPOSE 443
 
+ENV ConnectionStrings__DemoToolsCoreDBConnection ""
+ENV ASPNETCORE_ENVIRONMENT Development
+ENV SMTPServerConfig ""
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["MicroServices/Core/DemoTools.Authorization.Api/*.csproj", "MicroServices/Core/DemoTools.Authorization.Api/"]
+COPY ["MicroServices/Core/DemoTools.Core.Api/*.csproj", "MicroServices/Core/DemoTools.Core.Api/"]
 RUN dotnet restore "MicroServices/Core/DemoTools.Core.Api/DemoTools.Core.Api.csproj"
 COPY . .
 WORKDIR "/src/MicroServices/Core/DemoTools.Core.Api"

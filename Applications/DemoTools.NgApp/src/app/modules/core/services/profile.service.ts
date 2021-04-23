@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 
-import {SharedService} from '../../../shared/services/shared.service';
+import {environment} from 'src/environments/environment';
 import {IChangePasswordModel, IPasswordRecoveryModel, IRegistrationModel, ProfileModel} from '../classes/profile.class';
 
 
@@ -13,11 +13,11 @@ import {IChangePasswordModel, IPasswordRecoveryModel, IRegistrationModel, Profil
 })
 export class ProfileService {
 
-  constructor(private http: HttpClient, private sharedService: SharedService) {
+  constructor(private http: HttpClient) {
   }
 
   private get APIURL(): string {
-    return this.sharedService.API_CORE_URL;
+    return environment.coreApiUrl;
   }
 
   getProfile(): Observable<ProfileModel> {

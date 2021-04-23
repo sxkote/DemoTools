@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {SharedService} from '../../../shared/services/shared.service';
+import {HttpClient} from '@angular/common/http';
 import {TodoList} from '../classes/todo.class';
-import {Observable, throwError} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
 
 @Injectable()
 export class TodosService {
-  constructor(private http: HttpClient, private sharedService: SharedService) {
+  constructor(private http: HttpClient) {
   }
 
   private get APIURL(): string {
-    return this.sharedService.API_RECORDS_URL;
+    return environment.recordsApiUrl;
   }
 
   getTodoLists(): Observable<TodoList[]> {

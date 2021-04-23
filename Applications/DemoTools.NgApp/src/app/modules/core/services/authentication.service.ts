@@ -1,11 +1,10 @@
-import {SharedService} from './../../../shared/services/shared.service';
-
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {catchError, retry, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {Token} from '../classes/token.class';
 import {IToken} from 'src/app/interfaces/token.interface';
+import {environment} from 'src/environments/environment';
 
 
 @Injectable({
@@ -14,11 +13,11 @@ import {IToken} from 'src/app/interfaces/token.interface';
 export class AuthenticationService {
   private token: IToken | null = null;
 
-  constructor(private http: HttpClient, private sharedService: SharedService) {
+  constructor(private http: HttpClient) {
   }
 
   private get APIURL(): string {
-    return this.sharedService.API_CORE_URL;
+    return environment.coreApiUrl;
   }
 
   private applyToken(token: IToken | null, inLocalStorage: boolean, inHeaders: boolean): void {

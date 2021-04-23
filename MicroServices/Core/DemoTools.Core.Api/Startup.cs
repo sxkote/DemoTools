@@ -34,7 +34,7 @@ namespace DemoTools.Core.Api
             services.AddHttpContextAccessor();
 
             services.AddDbContext<CoreDbContext>(options =>
-               options.UseNpgsql(Configuration["ConnectionStrings:DemoToolsAuthorizationDBConnection"]));
+               options.UseNpgsql(Configuration["ConnectionStrings:DemoToolsCoreDBConnection"]));
 
             // Services
             services.AddScoped<ILogger, ConsoleLogger>();

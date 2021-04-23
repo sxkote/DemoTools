@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
-    <UserSecretsId>DemoTools-Authorization-b804ce84-44d3-4c10-a9f7-7bc4e06d3e4f</UserSecretsId>
+    <UserSecretsId>DemoTools-Core-b804ce84-44d3-4c10-a9f7-7bc4e06d3e4f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

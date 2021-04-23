@@ -9,14 +9,6 @@ export class SharedService {
   constructor() {
   }
 
-  get API_CORE_URL(): string {
-    return 'http://localhost:23120/api/';
-  }
-
-  get API_RECORDS_URL(): string {
-    return 'http://localhost:2530/api/';
-  }
-
   // Push new Toasts to array with content and options
   showToastMessage(textOrTpl: string | TemplateRef<any>, options: any = {}): void {
     this.toasts.push({textOrTpl, ...options});
