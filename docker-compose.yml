@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  envoyproxy:
+    build: 
+      context: .
+      dockerfile: Envoy/Dockerfile
+    ports:
+      - "9901:9901"
+      - "10000:10000"
+    # volumes:
+    #   - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
+  coreapi:
+    build: 
+      context: .
+      dockerfile: MicroServices/Authorization/DemoTools.Authorization.Api/Dockerfile
+    ports: 
+      - "8090:80"
+    environment:
+      ASPNETCORE_URLS: "http://+"
+      ASPNETCORE_ENVIRONMENT: "Development"
+    volumes:
+      - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
+  recordsapi:
+    build: 
+      context: .
+      dockerfile: MicroServices/Records/DemoTools.Records.Api/Dockerfile
+    ports: 
+      - "8092:80"
+    environment:
+      ASPNETCORE_URLS: "http://+"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      CoreApiURL: "http://coreapi:80"
+    volumes:
+      - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
+  

@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+$color-main: #2a9fd6;
+$color-link: $color-main;
+$color-link-hover: darken($color-link, 20%);
+
+$color-header: $color-main;
+$color-bg-gray: #efefef;
+
+.pointer {
+  cursor: pointer;
+}
+
+.link {
+  cursor: pointer;
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-link-hover !important;
+  }
+}
+
+h2 {
+  //color: $color-link;
+  //font-weight: bold;
+}
+
+
+.list-group {
+  .list-group-item {
+    & > .btn-group {
+      visibility: hidden;
+    }
+
+    &:hover {
+      background-color: $color-bg-gray;
+
+      & > .btn-group {
+        visibility: visible;
+      }
+    }
+  }
+}
+
+button.close {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+
+  span {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.2;
+  }
+}
+
+

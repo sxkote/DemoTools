@@ -8,7 +8,6 @@ namespace DemoTools.Modules.Main.Infrastructure.Data.Configuration.Entities
     {
         public void Configure(EntityTypeBuilder<AuthToken> builder)
         {
-
             builder.ToTable("AuthToken").HasKey(t => t.ID); 
 
             builder.Property(t => t.ID)

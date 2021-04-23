@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SX.Common.Infrastructure\SX.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\DemoTools.Authorization.Domain\DemoTools.Authorization.Domain.csproj" />
+    <ProjectReference Include="..\DemoTools.Authorization.Shared\DemoTools.Authorization.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

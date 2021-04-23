@@ -1,0 +1,74 @@
+<div class="content">
+  <h2>Profile</h2>
+
+  <div *ngIf="profile" class="mt-4">
+    <div class="item">
+      <div class="label">Subscription ID:</div>
+      <div class="value">{{profile.SubscriptionID}}</div>
+    </div>
+    <div class="item">
+      <div class="label">Login:</div>
+      <div class="value">{{profile.Login}}</div>
+    </div>
+    <div class="item">
+      <div class="label">Email:</div>
+      <div class="value">{{profile.Email}}</div>
+    </div>
+    <div class="item">
+      <div class="label">Name:</div>
+      <div class="value">{{profile.NameFirst}} {{profile.NameLast}}</div>
+    </div>
+    <div class="item">
+      <div class="label">Telephone:</div>
+      <div class="value">{{profile.Telephone}}</div>
+    </div>
+
+    <div class="mt-4">
+      <button class="btn btn-light" (click)="changePassword(modalChangePassword)">Change Password</button>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #modalChangePassword let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Change Password</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">Current Password</label>
+          <input type="password" placeholder="Password" class="form-control"
+                 [(ngModel)]="modelChangePassword.PasswordCurrent" required/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">New Password</label>
+          <input type="password" placeholder="Password" class="form-control"
+                 [(ngModel)]="modelChangePassword.Password" required/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">New Password Confirm</label>
+          <input type="password" placeholder="Password" class="form-control"
+                 [(ngModel)]="modelChangePassword.PasswordConfirm" required/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close(true)">Change Password</button>
+  </div>
+</ng-template>
