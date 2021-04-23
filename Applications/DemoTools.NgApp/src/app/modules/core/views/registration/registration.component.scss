@@ -1,0 +1,14 @@
+$width: 400px;
+
+div.content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  div.panel{
+    width: $width;
+  }
+}
+
+

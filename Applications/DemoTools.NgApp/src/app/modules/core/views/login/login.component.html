@@ -1,0 +1,90 @@
+<div class="content">
+  <div class="panel panel-default border p-1">
+    <div class="panel-body container">
+      <div class="row">
+        <div class="col text-center">
+          <h2 class="text-dark">Authorization</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <input type="text" placeholder="Login" class="form-control" [(ngModel)]="modelAuth.Login" required/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <input type="password" placeholder="Password" class="form-control" [(ngModel)]="modelAuth.Password" required/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-right">
+          <a class="link" (click)="passwordRecovery(modalPasswordRecovery)" >Forget your password?</a>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <a routerLink="/registration" class="btn btn-secondary">Registration</a>
+          <button class="btn btn-primary float-right" (click)="authenticate()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #modalPasswordRecovery let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Password Recovery</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">Login</label>
+          <input type="text" placeholder="john@doe.com" class="form-control"
+                 [(ngModel)]="modelPasswordRecovery.Login" required/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">New Password</label>
+          <input type="password" placeholder="Password" class="form-control"
+                 [(ngModel)]="modelPasswordRecovery.Password" required/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">New Password Confirm</label>
+          <input type="password" placeholder="Password" class="form-control"
+                 [(ngModel)]="modelPasswordRecovery.PasswordConfirm" required/>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="isInited">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="control-label">PIN from e-mail</label>
+          <input type="password" class="form-control" [(ngModel)]="pin" required/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" *ngIf="!isInited" (click)="passwordRecoveryInit()">Init Password Recovery</button>
+    <button type="button" class="btn btn-primary" *ngIf="isInited" (click)="modal.close(true)">Complete Password Recovery</button>
+  </div>
+</ng-template>

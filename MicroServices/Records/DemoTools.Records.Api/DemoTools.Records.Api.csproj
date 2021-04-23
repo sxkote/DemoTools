@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <UserSecretsId>DemoTools-Records-0f176e91-9f7c-4aa5-8e33-a1608d96a933</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SX.Common.Api\SX.Common.Api.csproj" />
+    <ProjectReference Include="..\..\..\Common\SX.Common.Infrastructure\SX.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Core\DemoTools.Core.Proxy\DemoTools.Core.Proxy.csproj" />
+    <ProjectReference Include="..\DemoTools.Records.Domain\DemoTools.Records.Domain.csproj" />
+    <ProjectReference Include="..\DemoTools.Records.Infrastructure\DemoTools.Records.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

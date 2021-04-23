@@ -1,4 +1,5 @@
 ﻿using SX.Common.Shared.Interfaces;
+using System.Threading.Tasks;
 
 namespace SX.Common.Shared.Contracts
 {
@@ -7,4 +8,5 @@ namespace SX.Common.Shared.Contracts
         IToken Authenticate(string login, string password, string ip = null);
         IToken Authenticate(string token);
     }
+
 }
