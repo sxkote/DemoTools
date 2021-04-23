@@ -1,28 +1,23 @@
-﻿using DemoTools.Core.Proxy.Services;
-using DemoTools.Records.Domain.Contracts;
-using DemoTools.Records.Infrastructure.Data;
-using DemoTools.Records.Infrastructure.Services;
+﻿using DemoTools.Core.Domain.Contracts;
+using DemoTools.Core.Infrastructure.Data;
+using DemoTools.Core.Infrastructure.Services;
+using DemoTools.Core.Shared.DomainEvents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SX.Common.Api.Classes;
 using SX.Common.Api.Filters;
 using SX.Common.Api.Services;
 using SX.Common.Infrastructure.Services;
+using SX.Common.Shared.Classes;
 using SX.Common.Shared.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SX.Common.Shared.Interfaces;
 
-namespace DemoTools.Records.Api
+namespace DemoTools.Core.Api
 {
     public class Startup
     {
@@ -38,15 +33,21 @@ namespace DemoTools.Records.Api
         {
             services.AddHttpContextAccessor();
 
-            services.AddDbContext<RecordsDbContext>(options =>
-                options.UseNpgsql(Configuration["ConnectionStrings:DemoToolsRecordsDBConnection"]));
+            services.AddDbContext<CoreDbContext>(options =>
+               options.UseNpgsql(Configuration["ConnectionStrings:DemoToolsAuthorizationDBConnection"]));
 
-            services.AddScoped<SX.Common.Shared.Contracts.ILogger, ConsoleLogger>();
-            services.AddScoped<IAuthenticationProvider, AuthenticationProxy>();
-            services.AddScoped<ITokenProvider, ApiTokenProvider>();
+            // Services
+            services.AddScoped<ILogger, ConsoleLogger>();
             services.AddSingleton<ISettingsProvider, SettingsProvider>();
             services.AddSingleton<ICacheProvider>(x => new MemoryCacheProvider());
-            services.AddScoped<ITodoService, TodoService>();
+            services.AddScoped<ITokenProvider, ApiTokenProvider>();
+            services.AddScoped<IAuthenticationProvider, AuthenticationService>();
+            services.AddScoped<IProfileService, ProfileService>();
+
+            // Domain-Events
+            services.AddScoped<IDomainEventHandler<RegistrationInitDomainEvent>, NotificationService>();
+            services.AddScoped<IDomainEventHandler<PasswordRecoveryInitDomainEvent>, NotificationService>();
+            services.AddScoped<IDomainEventHandler<PasswordChangedDomainEvent>, NotificationService>();
 
             services.AddCors(options =>
             {
@@ -58,6 +59,7 @@ namespace DemoTools.Records.Api
                             .AllowAnyHeader();
                     });
             });
+
 
             services
                 .AddControllers(options =>
@@ -79,8 +81,11 @@ namespace DemoTools.Records.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoTools.Records.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoTools.Authorization.Api", Version = "v1" });
             });
+
+            var resolver = new ServiceResolver(services.BuildServiceProvider());
+            AppSettings.Global.DependencyResolver = resolver;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,7 +95,7 @@ namespace DemoTools.Records.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoTools.Records.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoTools.Authorization.Api v1"));
             }
 
             app.UseRouting();

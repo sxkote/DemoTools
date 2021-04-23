@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools", "DemoTools\DemoTools.csproj", "{A63D57D1-5CF3-4FCC-A1A7-0016EB765FB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools", "Applications\DemoTools\DemoTools.csproj", "{A63D57D1-5CF3-4FCC-A1A7-0016EB765FB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{FCDC47C3-EE5D-4CD2-B528-BE17718FDD88}"
 EndProject
@@ -33,15 +33,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Modules.Main.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{61F83226-5263-4875-8712-CEC7D59E06F8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{BEF14522-50F5-47BF-9587-D9F401979402}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{BEF14522-50F5-47BF-9587-D9F401979402}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Authorization.Domain", "MicroServices\Authorization\DemoTools.Authorization.Domain\DemoTools.Authorization.Domain.csproj", "{13E0CEAB-6EA2-40D9-8111-D3565F8B3033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Core.Domain", "MicroServices\Core\DemoTools.Core.Domain\DemoTools.Core.Domain.csproj", "{13E0CEAB-6EA2-40D9-8111-D3565F8B3033}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Authorization.Infrastructure", "MicroServices\Authorization\DemoTools.Authorization.Infrastructure\DemoTools.Authorization.Infrastructure.csproj", "{D911D708-9827-4A15-809C-46A4EB9B2F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Core.Infrastructure", "MicroServices\Core\DemoTools.Core.Infrastructure\DemoTools.Core.Infrastructure.csproj", "{D911D708-9827-4A15-809C-46A4EB9B2F91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Authorization.Api", "MicroServices\Authorization\DemoTools.Authorization.Api\DemoTools.Authorization.Api.csproj", "{14FD1639-4E72-44BC-9369-0B4EAF07A165}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Core.Api", "MicroServices\Core\DemoTools.Core.Api\DemoTools.Core.Api.csproj", "{14FD1639-4E72-44BC-9369-0B4EAF07A165}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Authorization.Shared", "MicroServices\Authorization\DemoTools.Authorization.Shared\DemoTools.Authorization.Shared.csproj", "{6F41037C-8B90-4499-A8BC-D29B760C6DB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Core.Shared", "MicroServices\Core\DemoTools.Core.Shared\DemoTools.Core.Shared.csproj", "{6F41037C-8B90-4499-A8BC-D29B760C6DB1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Records", "Records", "{AFC03EF0-5EE5-4659-AC9F-F27EB9DD743D}"
 EndProject
@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Records.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Records.Shared", "MicroServices\Records\DemoTools.Records.Shared\DemoTools.Records.Shared.csproj", "{49C2A24B-8004-4295-A301-848BDF2EC22E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Authorization.Proxy", "MicroServices\Authorization\DemoTools.Authorization.Proxy\DemoTools.Authorization.Proxy.csproj", "{FD58B3A6-E2CC-42D9-8F68-D74E27902199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.Core.Proxy", "MicroServices\Core\DemoTools.Core.Proxy\DemoTools.Core.Proxy.csproj", "{FD58B3A6-E2CC-42D9-8F68-D74E27902199}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoTools.ApiGateWay", "Applications\DemoTools.ApiGateWay\DemoTools.ApiGateWay.csproj", "{5EBDB929-8406-4EB9-B88E-5919044DD7FC}"
 EndProject

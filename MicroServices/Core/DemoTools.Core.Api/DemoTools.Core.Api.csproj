@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
-    <UserSecretsId>DemoTools-Records-0f176e91-9f7c-4aa5-8e33-a1608d96a933</UserSecretsId>
+    <UserSecretsId>DemoTools-Authorization-b804ce84-44d3-4c10-a9f7-7bc4e06d3e4f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,9 +19,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\SX.Common.Api\SX.Common.Api.csproj" />
     <ProjectReference Include="..\..\..\Common\SX.Common.Infrastructure\SX.Common.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Core\DemoTools.Core.Proxy\DemoTools.Core.Proxy.csproj" />
-    <ProjectReference Include="..\DemoTools.Records.Domain\DemoTools.Records.Domain.csproj" />
-    <ProjectReference Include="..\DemoTools.Records.Infrastructure\DemoTools.Records.Infrastructure.csproj" />
+    <ProjectReference Include="..\DemoTools.Core.Domain\DemoTools.Core.Domain.csproj" />
+    <ProjectReference Include="..\DemoTools.Core.Infrastructure\DemoTools.Core.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTO\" />
   </ItemGroup>
 
 </Project>
