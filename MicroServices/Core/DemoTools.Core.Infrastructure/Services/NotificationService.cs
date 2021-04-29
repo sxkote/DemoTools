@@ -1,37 +1,42 @@
 ﻿using DemoTools.Core.Shared.DomainEvents;
-using Microsoft.Extensions.Configuration;
-using SX.Common.Infrastructure.Services;
+using DemoTools.Notifications.Shared.Models;
 using SX.Common.Shared.Contracts;
 using SX.Common.Shared.Interfaces;
+using System;
 
 namespace DemoTools.Core.Infrastructure.Services
 {
-    public class NotificationService : 
+    public class NotificationService :
        IDomainEventHandler<RegistrationInitDomainEvent>,
        IDomainEventHandler<PasswordRecoveryInitDomainEvent>,
        IDomainEventHandler<PasswordChangedDomainEvent>
     {
-        public const string CONFIG_NAME_SMTP_SERVER = "SMTPServerConfig";
+        private readonly IEventBusPublisher _eventBusPublisher;
 
-        //private readonly ISettingsProvider _settingsProvider;
-        private IEmailNotificationService _emailService;
-
-        private IEmailNotificationService EmailService
+        public NotificationService(IEventBusPublisher eventBusPublisher)
         {
-            get
-            {
-                return _emailService;
-            }
-        }
-
-        public NotificationService(IConfiguration configuration)
-        {
-            _emailService = new EmailNotificationService(configuration[CONFIG_NAME_SMTP_SERVER]);
+            _eventBusPublisher = eventBusPublisher;
         }
 
         public void Dispose()
         {
-            //_emailService = null;
+            _eventBusPublisher.Dispose();
+        }
+
+        private void SendEmail(EmailMessageModel model)
+        {
+            if (model != null && !String.IsNullOrWhiteSpace(model.Recipients))
+                _eventBusPublisher.Publish(model, EmailMessageModel.EMAIL_QUEUE_NAME);
+        }
+
+        private void SendEmail(string subject, string body, string recipients)
+        {
+            this.SendEmail(new EmailMessageModel()
+            {
+                Subject = subject ?? "",
+                Body = body ?? "",
+                Recipients = recipients ?? ""
+            });
         }
 
         public void Handle(RegistrationInitDomainEvent args)
@@ -39,7 +44,7 @@ namespace DemoTools.Core.Infrastructure.Services
             if (args == null)
                 return;
 
-            this.EmailService.SendEmail("Demo-Tools Registration", $"Dear {args.NameFirst} {args.NameLast}, \nTo continue registration process in Demo-Tools for login '{args.Login}', \nplease use PIN = {args.PIN}.", args.Email);
+            this.SendEmail("Registration", $"Dear {args.NameFirst} {args.NameLast}, \nTo continue registration process in Demo-Tools for login '{args.Login}', \nplease use PIN = {args.PIN}.", args.Email);
         }
 
         public void Handle(PasswordRecoveryInitDomainEvent args)
@@ -47,7 +52,7 @@ namespace DemoTools.Core.Infrastructure.Services
             if (args == null)
                 return;
 
-            this.EmailService.SendEmail("Demo-Tools Password Recovery", $"Dear {args.NameFirst} {args.NameLast}, \nTo continue password recovery process in Demo-Tools for login '{args.Login}', \nplease use PIN = {args.PIN}.", args.Email);
+            this.SendEmail("Password Recovery", $"Dear {args.NameFirst} {args.NameLast}, \nTo continue password recovery process in Demo-Tools for login '{args.Login}', \nplease use PIN = {args.PIN}.", args.Email);
         }
 
         public void Handle(PasswordChangedDomainEvent args)
@@ -55,7 +60,7 @@ namespace DemoTools.Core.Infrastructure.Services
             if (args == null)
                 return;
 
-            this.EmailService.SendEmail("Demo-Tools Password Changed", $"Dear {args.NameFirst} {args.NameLast},\nYour password in Demo-Tools for login '{args.Login}', \nhas been changed to '{args.Password}'.", args.Email);
+            this.SendEmail("Password Changed", $"Dear {args.NameFirst} {args.NameLast},\nYour password in Demo-Tools for login '{args.Login}', \nhas been changed to '{args.Password}'.", args.Email);
         }
     }
 }

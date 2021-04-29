@@ -27,6 +27,8 @@ namespace SX.Common.Shared.Services
         [ThreadStatic]
         private static Random _randomizer;
 
+        private static JsonSerializerSettings _jsonSettings;
+
         public static Random Randomizer
         {
             get
@@ -70,27 +72,40 @@ namespace SX.Common.Shared.Services
         {
             get
             {
-                var settings = new JsonSerializerSettings()
+                if (_jsonSettings == null)
                 {
-                    Formatting = Formatting.Indented,
+                    _jsonSettings = new JsonSerializerSettings()
+                    {
+                        // beautify json text
+                        Formatting = Formatting.Indented,
 
-                    //DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
-                    DateFormatString = JsonDateTimeConverter.DateTimeOffsetFormat,
-                    DateParseHandling = DateParseHandling.DateTimeOffset,
+                        // we need $type for interfaces and abstract classes
+                        TypeNameHandling = TypeNameHandling.Objects,
 
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                        // date-time settings
+                        //DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
+                        DateFormatString = JsonDateTimeConverter.DateTimeOffsetFormat,
+                        DateParseHandling = DateParseHandling.DateTimeOffset,
 
-                    NullValueHandling = NullValueHandling.Ignore,
+                        // looping
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
 
-                    Converters = CommonService.JsonConverters,
-                };
+                        // nulls
+                        NullValueHandling = NullValueHandling.Ignore,
 
-                //settings.Converters.Add(new StringEnumConverter() { AllowIntegerValues = true });
-                //settings.Converters.Add(new CustomJsonDateTimeConverter());
-                //settings.Converters.Add(new CustomJsonCustomValueConverter());
+                        // converters
+                        Converters = CommonService.JsonConverters,
+                    };
 
-                return settings;
+                    //settings.Converters.Add(new StringEnumConverter() { AllowIntegerValues = true });
+                    //settings.Converters.Add(new CustomJsonDateTimeConverter());
+                    //settings.Converters.Add(new CustomJsonCustomValueConverter());
+                }
+
+
+                return _jsonSettings;
             }
+            set { _jsonSettings = value; }
         }
 
         static public List<JsonConverter> JsonConverters = new List<JsonConverter>();
@@ -103,6 +118,17 @@ namespace SX.Common.Shared.Services
         static public T Deserialize<T>(string data)
         {
             return JsonConvert.DeserializeObject<T>(data, CommonService.JsonSettings);
+        }
+        static public T TryDeserialize<T>(string data)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(data, CommonService.JsonSettings);
+            }
+            catch (JsonSerializationException)
+            {
+                return default(T);
+            }
         }
 
         static public List<Type> DomainEventTypes = new List<Type>();

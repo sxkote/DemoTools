@@ -20,33 +20,32 @@ namespace SX.Common.Shared.Classes
 
         public IDependencyResolver DependencyResolver { get; set; }
 
-        protected AppConfig _config;
-        public AppConfig Config
-        {
-            get
-            {
-                if (_config == null)
-                {
-                    var settingsProvider = this.DependencyResolver.Resolve<ISettingsProvider>();
-                    _config = settingsProvider.GetSettings<AppConfig>("AppConfig");
-                }
-                return _config;
-            }
-        }
+        //protected AppConfig _config;
+        //public AppConfig Config
+        //{
+        //    get
+        //    {
+        //        if (_config == null)
+        //        {
+        //            var settingsProvider = this.DependencyResolver.Resolve<ISettingsProvider>();
+        //            _config = settingsProvider.GetSettings<AppConfig>("AppConfig");
+        //        }
+        //        return _config;
+        //    }
+        //}
 
 
-        public AppMode Mode => this.Config.Mode;
-        public bool IsTest() => this.Config.Mode  == AppMode.Test;
-        public bool IsProduction() => this.Config.Mode == AppMode.Production;
-        public bool IsDevelopment() => this.Config.Mode == AppMode.Development;
-        public bool CanTrace() => this.Config.Trace;
-
+        //public AppMode Mode => this.Config.Mode;
+        //public bool IsTest() => this.Config.Mode == AppMode.Test;
+        //public bool IsProduction() => this.Config.Mode == AppMode.Production;
+        //public bool IsDevelopment() => this.Config.Mode == AppMode.Development;
+        //public bool CanTrace() => this.Config.Trace;
 
         public AppSettings() { }
 
 
 
-        public T Resolve<T>()
+        static public T Resolve<T>()
         {
             var resolver = AppSettings.Global.DependencyResolver;
 
@@ -56,7 +55,7 @@ namespace SX.Common.Shared.Classes
             return resolver.Resolve<T>();
         }
 
-        public IEnumerable<T> ResolveAll<T>()
+        static public IEnumerable<T> ResolveAll<T>()
         {
             var resolver = AppSettings.Global.DependencyResolver;
 

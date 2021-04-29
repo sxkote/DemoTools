@@ -12,7 +12,7 @@ namespace SX.Common.Shared.Models
         public string Login { get; set; }
         public string Password { get; set; }
 
-        public virtual int DefaultPort { get { return 80; } }
+        public virtual int DefaultPort => 80;
 
         public ServerConfig() { }
 
@@ -25,20 +25,26 @@ namespace SX.Common.Shared.Models
 
         protected virtual void ParseConnectionStringParams(ParamValueCollection parametres)
         {
-            if (parametres != null)
+            if (parametres == null)
+                return;
+
+            this.Server = parametres.GetValue("Server") ?? "";
+
+            if (parametres.Contains("SSL"))
             {
-                this.Server = parametres.GetValue("Server") ?? "";
-
-                if (parametres.Contains("SSL"))
-                    this.SSL = parametres.GetText("SSL").Equals("true", CommonService.StringComparison);
-
-                if (parametres.Contains("Port"))
-                    this.Port = Convert.ToInt32(parametres.GetText("Port") ?? this.DefaultPort.ToString());
-
-                this.Login = parametres.GetValue("Login") ?? "";
-
-                this.Password = parametres.GetValue("Password") ?? "";
+                var value = parametres.GetText("SSL");
+                this.SSL = !String.IsNullOrWhiteSpace(value) && value.Equals("true", CommonService.StringComparison);
             }
+
+            if (parametres.Contains("Port"))
+            {
+                var value = parametres.GetText("Port");
+                this.Port = String.IsNullOrWhiteSpace(value) ? this.DefaultPort : Convert.ToInt32(value);
+            }
+
+            this.Login = parametres.GetValue("Login") ?? "";
+
+            this.Password = parametres.GetValue("Password") ?? "";
         }
     }
 }

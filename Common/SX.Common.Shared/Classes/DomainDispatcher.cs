@@ -13,10 +13,10 @@ namespace SX.Common.Shared.Classes
         private static List<Delegate> _events;
 
         // Container with Dependency Injections
-        public static IDependencyResolver Container { get { return AppSettings.Global.DependencyResolver; } }
+        public static IDependencyResolver Container => AppSettings.Global.DependencyResolver;
 
         // Registers a callback for the given domain event
-        public static void Register<T>(Action<T> callback) where T : IDomainEvent
+        public static void RegisterEvent<T>(Action<T> callback) where T : IDomainEvent
         {
             if (_events == null)
                 _events = new List<Delegate>();

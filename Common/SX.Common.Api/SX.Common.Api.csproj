@@ -14,11 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SX.Common.Infrastructure\SX.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\SX.Common.Shared\SX.Common.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Attributes\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

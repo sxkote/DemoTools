@@ -5,14 +5,18 @@ namespace SX.Common.Infrastructure.Models
 {
     public class SMTPServerConfig : ServerConfig
     {
+        public const string CONFIG_NAME = "SMTPServerConfig";
+
         public const string DEFAULT_SERVER_ALIAS = "default";
         public const int DEFAULT_PORT = 25; //587
         public const int DEFAULT_PORT_SSL = 465;
 
+        static public SMTPServerConfig Default => new SMTPServerConfig() { Server = DEFAULT_SERVER_ALIAS };
+
+
         public string From { get; set; }
 
-        public override int DefaultPort
-        { get { return this.SSL ? DEFAULT_PORT_SSL : DEFAULT_PORT; } }
+        public override int DefaultPort => this.SSL ? DEFAULT_PORT_SSL : DEFAULT_PORT;
 
         protected SMTPServerConfig() { }
 
@@ -33,8 +37,5 @@ namespace SX.Common.Infrastructure.Models
                 this.From = parametres.GetValue("From") ?? "";
             }
         }
-
-        static public SMTPServerConfig Default
-        { get { return new SMTPServerConfig() { Server = DEFAULT_SERVER_ALIAS }; } }
     }
 }

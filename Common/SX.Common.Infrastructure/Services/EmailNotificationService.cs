@@ -19,17 +19,14 @@ namespace SX.Common.Infrastructure.Services
     {
         protected SMTPServerConfig _config;
 
+        public virtual string DefaultFrom => _config.From ?? "";
+
+
         public EmailNotificationService(SMTPServerConfig config)
-        { _config = config; }
+        {
+            _config = config;
+        }
 
-        public EmailNotificationService(string connectionString)
-        { _config = new SMTPServerConfig(connectionString); }
-
-        public EmailNotificationService()
-        { _config = SMTPServerConfig.Default; }
-
-        public virtual string DefaultFrom
-        { get { return _config?.From ?? ""; } }
 
         public SmtpClient BuildSMTPClient()
         {
@@ -170,6 +167,6 @@ namespace SX.Common.Infrastructure.Services
             message.AddAttachments(attachments);
             message.AddResources(resources);
             this.SendEmail(message);
-        }   
+        }
     }
 }

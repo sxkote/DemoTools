@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\SX.Common.Infrastructure\SX.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Notifications\DemoTools.Notifications.Shared\DemoTools.Notifications.Shared.csproj" />
     <ProjectReference Include="..\DemoTools.Core.Domain\DemoTools.Core.Domain.csproj" />
     <ProjectReference Include="..\DemoTools.Core.Shared\DemoTools.Core.Shared.csproj" />
   </ItemGroup>

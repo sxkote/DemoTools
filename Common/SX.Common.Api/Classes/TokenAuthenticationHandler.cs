@@ -16,7 +16,6 @@ namespace SX.Common.Api.Classes
         public const string HEADER = "Authorization";
 
         private readonly IAuthenticationProvider _authenticationProvider;
-        private readonly Shared.Contracts.ILogger _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public TokenAuthenticationHandler(
@@ -25,30 +24,22 @@ namespace SX.Common.Api.Classes
             UrlEncoder encoder,
             ISystemClock clock,
             IAuthenticationProvider authenticationProvider,
-            Shared.Contracts.ILogger logger,
             IHttpContextAccessor httpContextAccessor)
             : base(options, loggerFactory, encoder, clock)
         {
             _authenticationProvider = authenticationProvider;
-            _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            _logger.Trace("checking request");
-
             if (!Request.Headers.ContainsKey(HEADER))
                 return Unauthorized();
-
-            _logger.Trace("checking header");
 
             string header = Request.Headers[HEADER];
             if (string.IsNullOrEmpty(header))
                 return Unauthorized();
             //return AuthenticateResult.NoResult();
-
-            _logger.Trace($"header: {header}");
 
             if (!header.StartsWith(SCHEMA, StringComparison.OrdinalIgnoreCase))
                 return Unauthorized();
@@ -56,8 +47,6 @@ namespace SX.Common.Api.Classes
             string tokenCode = header.Substring(SCHEMA.Length).Trim();
             if (string.IsNullOrEmpty(tokenCode))
                 return Unauthorized();
-
-            _logger.Trace($"token code from header: {tokenCode}");
 
             try
             {
@@ -71,13 +60,9 @@ namespace SX.Common.Api.Classes
 
         private AuthenticateResult ValidateToken(string code)
         {
-            _logger.Trace($"validating token: {code}");
-
             var token = _authenticationProvider.Authenticate(code);
             if (token == null || !token.IsValid())
                 return Unauthorized();
-
-            _logger.Trace($"creating principal for: {code}");
 
             var identity = new ApiIdentity(token);
             var principal = new GenericPrincipal(identity, token.Roles);

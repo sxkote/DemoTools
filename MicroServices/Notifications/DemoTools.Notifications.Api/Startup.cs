@@ -1,10 +1,7 @@
-﻿using DemoTools.Core.Domain.Contracts;
-using DemoTools.Core.Infrastructure.Data;
-using DemoTools.Core.Infrastructure.Services;
-using DemoTools.Core.Shared.DomainEvents;
+﻿using DemoTools.Core.Proxy.Services;
+using DemoTools.Notifications.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +16,7 @@ using SX.Common.Shared.Contracts;
 using SX.Common.Shared.Events;
 using SX.Common.Shared.Interfaces;
 
-namespace DemoTools.Core.Api
+namespace DemoTools.Notifications.Api
 {
     public class Startup
     {
@@ -35,28 +32,21 @@ namespace DemoTools.Core.Api
         {
             services.AddHttpContextAccessor();
 
-            services.AddDbContext<CoreDbContext>(options =>
-               options.UseNpgsql(Configuration["ConnectionStrings:DemoToolsCoreDBConnection"]));
-
             // Options & Configurations
             services.Configure<RabbitMQConfig>(Configuration.GetSection(RabbitMQConfig.CONFIG_NAME));
 
             // Hosted Services
+            services.AddHostedService<RabbitMQBackgroundService>();
 
             // Services
             services.AddScoped<ILogger, ConsoleLogger>();
             services.AddSingleton<ISettingsProvider, SettingsProvider>();
             services.AddSingleton<ICacheProvider>(x => new MemoryCacheProvider());
             services.AddScoped<ITokenProvider, ApiTokenProvider>();
-            services.AddScoped<IAuthenticationProvider, AuthenticationService>();
-            services.AddScoped<IProfileService, ProfileService>();
-            services.AddScoped<IEventBusPublisher, RabbitMQPublisher>();
-
+            services.AddScoped<IAuthenticationProvider, AuthenticationProxy>();
 
             // Domain-Events
-            services.AddScoped<IDomainEventHandler<RegistrationInitDomainEvent>, NotificationService>();
-            services.AddScoped<IDomainEventHandler<PasswordRecoveryInitDomainEvent>, NotificationService>();
-            services.AddScoped<IDomainEventHandler<PasswordChangedDomainEvent>, NotificationService>();
+            services.AddScoped<IDomainEventHandler<EventBusMessageReceivedEvent>, NotificationService>();
 
             services.AddCors(options =>
             {
@@ -90,7 +80,7 @@ namespace DemoTools.Core.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoTools.Core.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoTools.Notifications.Api", Version = "v1" });
             });
 
             var resolver = new ServiceResolver(services.BuildServiceProvider());
@@ -104,7 +94,7 @@ namespace DemoTools.Core.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoTools.Core.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoTools.Notifications.Api v1"));
             }
 
             app.UseRouting();
